@@ -1,0 +1,166 @@
+{
+  "_assumptions": "Positions are illustrative named-zone + relative {x,y} coordinates for demo purposes only, not surveyed GPS/BIM data. Congestion values shown here are static fallbacks; live values are written to Firestore by the server-side simulator (see src/services/firestoreClient.js) and override these at runtime. capacity_threshold is the congestion (0-100) above which the scorer should prefer an alternative facility.",
+  "venue": {
+    "id": "metlife-stadium",
+    "name": "MetLife Stadium",
+    "city": "East Rutherford, NJ",
+    "event": "FIFA World Cup 2026 Final"
+  },
+  "facilities": [
+    {
+      "id": "gate-a",
+      "name": "Gate A",
+      "type": "gate",
+      "accessible": true,
+      "under_maintenance": false,
+      "accessibility_features": ["ramp", "wide_turnstile", "braille_signage", "audio_beacon"],
+      "relative_position": { "zone": "north", "x": 12, "y": 4 },
+      "capacity_threshold": 70,
+      "nearest_transit_note": "2 min walk from NJ Transit accessible platform"
+    },
+    {
+      "id": "gate-b",
+      "name": "Gate B",
+      "type": "gate",
+      "accessible": true,
+      "under_maintenance": true,
+      "accessibility_features": ["ramp", "wide_turnstile", "braille_signage", "audio_beacon"],
+      "relative_position": { "zone": "north", "x": 20, "y": 6 },
+      "capacity_threshold": 70,
+      "nearest_transit_note": "3 min walk from NJ Transit accessible platform"
+    },
+    {
+      "id": "gate-c",
+      "name": "Gate C",
+      "type": "gate",
+      "accessible": true,
+      "under_maintenance": false,
+      "accessibility_features": ["ramp", "wide_turnstile"],
+      "relative_position": { "zone": "east", "x": 30, "y": 15 },
+      "capacity_threshold": 65,
+      "nearest_transit_note": "5 min walk from rideshare drop-off"
+    },
+    {
+      "id": "gate-d",
+      "name": "Gate D",
+      "type": "gate",
+      "accessible": false,
+      "under_maintenance": false,
+      "accessibility_features": ["stairs_only"],
+      "relative_position": { "zone": "east", "x": 34, "y": 18 },
+      "capacity_threshold": 80,
+      "nearest_transit_note": "4 min walk from general parking"
+    },
+    {
+      "id": "gate-e",
+      "name": "Gate E",
+      "type": "gate",
+      "accessible": true,
+      "under_maintenance": false,
+      "accessibility_features": ["ramp", "wide_turnstile", "braille_signage", "audio_beacon", "quiet_queue_lane"],
+      "relative_position": { "zone": "south", "x": 15, "y": 28 },
+      "capacity_threshold": 75,
+      "nearest_transit_note": "6 min walk from NJ Transit accessible platform"
+    },
+    {
+      "id": "gate-f",
+      "name": "Gate F",
+      "type": "gate",
+      "accessible": true,
+      "under_maintenance": false,
+      "accessibility_features": ["ramp", "wide_turnstile", "audio_beacon"],
+      "relative_position": { "zone": "west", "x": 5, "y": 22 },
+      "capacity_threshold": 70,
+      "nearest_transit_note": "3 min walk from accessible shuttle stop"
+    },
+    {
+      "id": "restroom-north",
+      "name": "North Concourse Accessible Restroom",
+      "type": "restroom",
+      "accessible": true,
+      "under_maintenance": false,
+      "accessibility_features": ["wheelchair_stall", "grab_bars", "braille_signage"],
+      "relative_position": { "zone": "north", "x": 14, "y": 5 },
+      "capacity_threshold": 60,
+      "nearest_transit_note": "adjacent to Gate A concourse"
+    },
+    {
+      "id": "restroom-south",
+      "name": "South Concourse Accessible Restroom",
+      "type": "restroom",
+      "accessible": true,
+      "under_maintenance": false,
+      "accessibility_features": ["wheelchair_stall", "grab_bars"],
+      "relative_position": { "zone": "south", "x": 16, "y": 27 },
+      "capacity_threshold": 60,
+      "nearest_transit_note": "adjacent to Gate E concourse"
+    },
+    {
+      "id": "quiet-room-east",
+      "name": "East Sensory Quiet Room",
+      "type": "quiet_room",
+      "accessible": false,
+      "under_maintenance": false,
+      "accessibility_features": ["low_light", "noise_dampening", "stairs_only"],
+      "relative_position": { "zone": "east", "x": 32, "y": 16 },
+      "capacity_threshold": 40,
+      "nearest_transit_note": "one flight up from Gate C concourse, no elevator"
+    },
+    {
+      "id": "quiet-room-west",
+      "name": "West Sensory Quiet Room",
+      "type": "quiet_room",
+      "accessible": true,
+      "under_maintenance": false,
+      "accessibility_features": ["low_light", "noise_dampening", "ramp", "wide_doorway"],
+      "relative_position": { "zone": "west", "x": 6, "y": 21 },
+      "capacity_threshold": 40,
+      "nearest_transit_note": "ground level, adjacent to Gate F concourse"
+    },
+    {
+      "id": "medical-central",
+      "name": "Central Medical Station",
+      "type": "medical",
+      "accessible": true,
+      "under_maintenance": false,
+      "accessibility_features": ["ramp", "wide_doorway", "braille_signage"],
+      "relative_position": { "zone": "central", "x": 18, "y": 14 },
+      "capacity_threshold": 90,
+      "nearest_transit_note": "central concourse, equidistant from all gates"
+    },
+    {
+      "id": "guest-services-main",
+      "name": "Main Guest Services Desk",
+      "type": "guest_services",
+      "accessible": true,
+      "under_maintenance": false,
+      "accessibility_features": ["ramp", "wide_doorway", "assistive_listening_devices"],
+      "relative_position": { "zone": "central", "x": 17, "y": 12 },
+      "capacity_threshold": 85,
+      "nearest_transit_note": "central concourse, near Gate A"
+    },
+    {
+      "id": "restroom-west-stale",
+      "name": "West Concourse Accessible Restroom",
+      "type": "restroom",
+      "accessible": true,
+      "under_maintenance": false,
+      "accessibility_features": ["wheelchair_stall", "grab_bars"],
+      "relative_position": { "zone": "west", "x": 7, "y": 23 },
+      "capacity_threshold": 60,
+      "nearest_transit_note": "adjacent to Gate F concourse",
+      "congestion_fallback": null
+    },
+    {
+      "id": "guest-services-north",
+      "name": "North Guest Services Kiosk",
+      "type": "guest_services",
+      "accessible": true,
+      "under_maintenance": false,
+      "accessibility_features": ["ramp", "assistive_listening_devices"],
+      "relative_position": { "zone": "north", "x": 13, "y": 3 },
+      "capacity_threshold": 80,
+      "nearest_transit_note": "near Gate A entrance plaza"
+    }
+  ]
+}
