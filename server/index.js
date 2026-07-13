@@ -2,6 +2,10 @@ import 'dotenv/config'
 import express from 'express'
 import cors from 'cors'
 import { startCongestionSimulator, getCongestionSnapshot } from './services/congestionSimulator.js'
+import { rateLimit } from './middleware/rateLimit.js'
+import { handleChat } from './routes/chat.js'
+import { handleTranslate } from './routes/translate.js'
+import { handleSpeechToText, handleTextToSpeech } from './routes/speech.js'
 
 const app = express()
 const PORT = process.env.PORT || 3001
@@ -21,7 +25,14 @@ app.get('/api/congestion', (_req, res) => {
   res.json(getCongestionSnapshot())
 })
 
-// TODO: /api/chat -> Claude, /api/translate -> Google Translate, /api/speech -> Google Speech
+const chatLimiter = rateLimit({ windowMs: 60_000, max: 20 })
+const translateLimiter = rateLimit({ windowMs: 60_000, max: 30 })
+const speechLimiter = rateLimit({ windowMs: 60_000, max: 20 })
+
+app.post('/api/chat', chatLimiter, handleChat)
+app.post('/api/translate', translateLimiter, handleTranslate)
+app.post('/api/speech-to-text', speechLimiter, handleSpeechToText)
+app.post('/api/text-to-speech', speechLimiter, handleTextToSpeech)
 
 startCongestionSimulator()
 
