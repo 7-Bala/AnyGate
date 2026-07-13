@@ -22,14 +22,19 @@ function parseChatResponse(raw) {
 }
 
 export async function handleChat(req, res) {
-  const { message, facilityData, recommendation } = req.body ?? {}
+  const { message, facilityData, recommendation, language, simpleLanguage } = req.body ?? {}
 
   if (typeof message !== 'string' || !message.trim()) {
     return res.status(400).json({ error: 'message is required' })
   }
 
   const sanitized = sanitizeUserInput(message)
-  const systemPrompt = buildChatSystemPrompt({ facilityData, recommendation })
+  const systemPrompt = buildChatSystemPrompt({
+    facilityData,
+    recommendation,
+    language,
+    simpleLanguage: Boolean(simpleLanguage),
+  })
 
   try {
     const raw = await sendChatMessage({

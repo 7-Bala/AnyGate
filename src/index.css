@@ -18,3 +18,23 @@ body {
     scroll-behavior: auto !important;
   }
 }
+
+/* High-contrast mode: applied via a class toggle in component state
+   (no localStorage persistence, per spec). Forces a pure black/white
+   palette with visible borders rather than relying on per-component
+   Tailwind color variants, so the override is consistent everywhere. */
+.hc {
+  background: #000 !important;
+  color: #fff !important;
+}
+
+.hc * {
+  background-color: #000 !important;
+  color: #fff !important;
+  border-color: #fff !important;
+}
+
+.hc a,
+.hc button {
+  text-decoration: underline;
+}

@@ -85,6 +85,7 @@ export function scoreAndRank(validFacilities, liveCongestion = {}, fanNeeds = []
       breakdown: {
         distanceScore: Math.round(distanceScore),
         congestionScore: Math.round(congestionScore),
+        congestionValue: hasLiveCongestion ? congestionEntry.value : null,
         featureMatchScore: Math.round(featureMatchScore),
         congestionStatus: hasLiveCongestion ? 'live' : 'unknown',
         overCapacity,
