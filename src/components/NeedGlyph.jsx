@@ -17,30 +17,31 @@ const PATHS = {
     </>
   ),
 
-  // Person leaning on a walker - matching user image
+  // Elderly couple with canes - matching the 2nd user image
   limited_mobility: (
-    <>
-      {/* head */}
-      <circle cx="13.5" cy="5.5" r="2" strokeWidth="1.9" />
-      {/* back, shoulder, and arm reaching down/right to walker */}
-      <path d="M8.5 13 C8 9.5 10.5 7.5 11.5 8 C12.5 8.5 13.5 10.5 14.5 12" strokeWidth="1.9" />
-      {/* bent leg */}
-      <path d="M8.5 13 L6.5 16.5 C5.8 18.5 7 20.5 8.5 20.5 C10 20.5 10.2 18.5 9.8 13" strokeWidth="1.9" fill="none" />
-      {/* walker frame */}
-      <path d="M12.5 21 L13.2 13.5 C13.4 12.2 16.6 12.2 16.8 13.5 L17.5 21" strokeWidth="1.9" />
-      {/* walker horizontal bar */}
-      <path d="M13.1 16.2 L16.9 16.2" strokeWidth="1.9" />
-    </>
+    <g transform="scale(0.24)" fill="currentColor">
+      {/* Woman (left) */}
+      <circle cx="24" cy="11.5" r="4.5" />
+      <circle cx="24" cy="21" r="8" />
+      <path d="M 14,27 C 9,27 6,32 6,38 L 12,68 L 38,68 L 32,36 L 44,48 C 45,49.5 47,49.5 48,48 C 49,46.5 48.5,44.5 47,43 L 37,28 C 35.5,26 33.5,25 31.5,25 Z" />
+      <rect x="12" y="68" width="6.5" height="22" rx="3" />
+      <rect x="27.5" y="68" width="6.5" height="22" rx="3" />
+      <path d="M 42,57 C 40,55 40,51 45,51 C 50,51 50,55 50,58 L 50,88" stroke="currentColor" strokeWidth="4.5" strokeLinecap="round" fill="none" />
+
+      {/* Man (right) */}
+      <circle cx="68" cy="20" r="8" />
+      <path d="M 58,27 C 53,27 50,32 50,38 L 57,68 L 80,68 L 80,36 L 89,48 C 90,49.5 92,49.5 93,48 C 94,46.5 93.5,44.5 92,43 L 82,28 C 80.5,26 78.5,25 76.5,25 Z" />
+      <rect x="57" y="68" width="6.5" height="22" rx="3" />
+      <rect x="72.5" y="68" width="6.5" height="22" rx="3" />
+      <path d="M 83,57 C 81,55 81,51 86,51 C 91,51 91,55 91,58 L 91,88" stroke="currentColor" strokeWidth="4.5" strokeLinecap="round" fill="none" />
+    </g>
   ),
 
-  // Eye crossed out — visual impairment (Lucide "eye-off" style)
+  // Visual impairment - eye with vertical bars and diagonal slash matching the 1st user image
   visual_impairment: (
-    <>
-      <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94" strokeWidth="1.9" />
-      <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19" strokeWidth="1.9" />
-      <path d="M10.73 10.73A3 3 0 0 0 15 15" strokeWidth="1.9" />
-      <line x1="3" y1="3" x2="21" y2="21" strokeWidth="2" strokeLinecap="round" />
-    </>
+    <g transform="scale(0.24)" fill="currentColor">
+      <path d="M93.3,49c-0.8-0.8-19.5-19.9-43-20.1h-0.1c0,0,0,0-0.1,0H50c-3.1,0-6.1,0.3-9,0.9l-9.1-17.1l-2.6,1.4L38,30.5 C19.1,35.4,5.8,50,5.8,50s2.3,2.6,4.2,4.1c2.2,1.8,7.7,5.9,7.7,5.9l-5.8-11.8c1.5-1.3,3.4-2.8,5.7-4.5l12.2,22.9l4.3,1.7L20.1,42 c2.3-1.5,5-3.1,7.8-4.5l17.8,33.4l3.5,0.2L44.3,62c1.8,0.9,3.8,1.4,5.9,1.4c1.7,0,3.3-0.3,4.8-0.9l13.2,24.9l2.6-1.4l-8.7-16.4 c17.8-4.8,30.6-18,31.2-18.6l1-1L93.3,49z M68.3,50c0,6.2-3.2,12-8.4,15.3l-2.3-4.2c3.6-2.4,5.9-6.5,5.9-11.1 c0-7.4-6-13.3-13.3-13.3c-1.8,0-3.5,0.4-5,1l-2.3-4.3c2.3-1,4.7-1.5,7.2-1.5c0.1,0,0.1,0,0.2,0C60.2,32,68.3,40,68.3,50z M37,48.2 l-6.3-11.9c2.8-1.2,5.7-2.3,8.8-3l3.1,5.8C39.5,41.2,37.5,44.4,37,48.2z M64.2,65.7c4.4-4,7-9.6,7-15.7c0-6.2-2.7-11.8-7.1-15.7 C77,38.5,86.9,47,90.1,50C86.9,53,77,61.5,64.2,65.7z" />
+    </g>
   ),
 
   // Speaker / ear with waves + slash — "sound off" = hearing impairment
