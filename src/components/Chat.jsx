@@ -140,8 +140,8 @@ export default function Chat() {
   }
 
   return (
-    <section aria-labelledby="chat-heading" className="flex flex-col gap-4 rounded-xl border border-slate-300 p-5 dark:border-slate-600">
-      <h2 id="chat-heading" className="text-lg font-semibold">
+    <section aria-labelledby="chat-heading" className="flex flex-col gap-4 rounded-2xl border border-ink/10 p-5 dark:border-chalk/10">
+      <h2 id="chat-heading" className="font-display text-xl font-bold">
         {t('chatTitle', language)}
       </h2>
 
@@ -149,14 +149,16 @@ export default function Chat() {
         {messages.map((message) => (
           <li
             key={message.id}
-            className={`rounded-lg p-3 text-sm ${
-              message.role === 'fan'
-                ? 'self-end bg-blue-100 dark:bg-blue-900'
-                : 'self-start bg-slate-100 dark:bg-slate-800'
+            className={`max-w-[85%] rounded-2xl p-3 text-sm ${
+              message.urgent
+                ? 'self-start border-2 border-coral bg-ink text-chalk'
+                : message.role === 'fan'
+                  ? 'self-end bg-gold/15 text-ink dark:bg-gold/20 dark:text-chalk'
+                  : 'self-start bg-teal/10 text-ink dark:bg-teal/15 dark:text-chalk'
             }`}
           >
             {message.urgent && (
-              <p className="mb-2 font-semibold text-red-700 dark:text-red-300">{t('urgentBanner', language)}</p>
+              <p className="mb-2 font-display font-bold text-coral">{t('urgentBanner', language)}</p>
             )}
             <p>
               <bdi>{message.text}</bdi>
@@ -165,7 +167,11 @@ export default function Chat() {
               <button
                 type="button"
                 onClick={() => toggleReadAloud(message)}
-                className="mt-2 text-xs font-medium underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-800"
+                className={`mt-2 text-xs font-semibold underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 ${
+                  message.urgent
+                    ? 'text-gold focus-visible:outline-chalk'
+                    : 'text-teal-strong focus-visible:outline-teal dark:text-teal'
+                }`}
               >
                 {playingId === message.id ? t('stopReading', language) : t('readAloud', language)}
               </button>
@@ -180,7 +186,7 @@ export default function Chat() {
       </ol>
 
       {voiceError && (
-        <p role="alert" className="text-sm text-red-700 dark:text-red-300">
+        <p role="alert" className="text-sm font-medium text-coral-strong dark:text-coral">
           {voiceError}
         </p>
       )}
@@ -195,21 +201,21 @@ export default function Chat() {
           value={input}
           onChange={(e) => setInput(e.target.value)}
           placeholder={t('chatPlaceholder', language)}
-          className="flex-1 rounded-lg border border-slate-400 px-3 py-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-800"
+          className="flex-1 rounded-full border border-ink/25 bg-transparent px-4 py-2 placeholder:text-ink/70 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal dark:border-chalk/25 dark:placeholder:text-chalk/70"
         />
         <button
           type="button"
           onClick={recording ? stopRecording : startRecording}
           aria-pressed={recording}
           aria-label={recording ? t('micStop', language) : t('micStart', language)}
-          className="rounded-lg border border-slate-400 px-3 py-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-800"
+          className="rounded-full border border-ink/25 px-3 py-2 transition-colors aria-pressed:border-coral aria-pressed:bg-coral/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal dark:border-chalk/25"
         >
           {recording ? '⏹' : '🎤'}
         </button>
         <button
           type="submit"
           disabled={sending}
-          className="rounded-lg bg-blue-600 px-4 py-2 font-medium text-white disabled:opacity-60 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-800"
+          className="rounded-full bg-gold px-4 py-2 font-semibold text-ink transition-transform hover:scale-[1.02] disabled:opacity-60 disabled:hover:scale-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal"
         >
           {t('send', language)}
         </button>

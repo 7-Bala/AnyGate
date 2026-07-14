@@ -64,22 +64,32 @@ export default function RouteView() {
       />
 
       <div>
-        <h2 id="recommendation-heading" className="mb-3 text-xl font-semibold">
+        <h2 id="recommendation-heading" className="mb-3 font-display text-2xl font-bold">
           {t('recommendationTitle', language)}
         </h2>
         <RecommendationCard
+          key={shownResult.facility.id}
           result={shownResult}
           explanation={explanation.loading ? t('explanationLoading', language) : explanation.error ? t('explanationError', language) : explanation.text}
           headingId="top-recommendation-name"
+          variant="hero"
+          animate
         />
       </div>
 
       {alternates.length > 0 && (
         <div>
-          <h2 className="mb-3 text-lg font-semibold">{t('alternatesTitle', language)}</h2>
-          <div className="flex flex-col gap-4">
-            {alternates.map((result) => (
-              <RecommendationCard key={result.facility.id} result={result} headingId={`alt-${result.facility.id}`} />
+          <h2 className="mb-3 font-display text-xl font-bold">{t('alternatesTitle', language)}</h2>
+          <div className="flex flex-col gap-3">
+            {alternates.map((result, i) => (
+              <RecommendationCard
+                key={result.facility.id}
+                result={result}
+                headingId={`alt-${result.facility.id}`}
+                variant="alternate"
+                className="stagger-in"
+                style={{ animationDelay: `${i * 90}ms` }}
+              />
             ))}
           </div>
         </div>

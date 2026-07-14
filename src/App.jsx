@@ -15,16 +15,16 @@ function Toolbar() {
   const { language, setLanguage, highContrast, setHighContrast, simpleLanguage, setSimpleLanguage } = useAppContext()
 
   return (
-    <div className="flex flex-wrap items-center gap-4 border-b border-slate-300 px-6 py-3 dark:border-slate-600">
-      <label className="flex items-center gap-2 text-sm">
-        <span>{t('languageLabel', language)}</span>
+    <div className="flex flex-wrap items-center gap-3 border-t border-chalk/15 px-6 py-3">
+      <label className="flex items-center gap-2 text-sm text-chalk/85">
+        <span className="sr-only sm:not-sr-only">{t('languageLabel', language)}</span>
         <select
           value={language}
           onChange={(e) => setLanguage(e.target.value)}
-          className="rounded border border-slate-400 px-2 py-1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-800"
+          className="rounded-full border border-chalk/30 bg-transparent px-3 py-1.5 text-chalk focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold"
         >
           {LANGUAGES.map(({ code, label }) => (
-            <option key={code} value={code}>
+            <option key={code} value={code} className="text-ink">
               {label}
             </option>
           ))}
@@ -35,7 +35,7 @@ function Toolbar() {
         type="button"
         aria-pressed={highContrast}
         onClick={() => setHighContrast((v) => !v)}
-        className="rounded border border-slate-400 px-3 py-1 text-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-800"
+        className="rounded-full border border-chalk/30 px-3 py-1.5 text-sm text-chalk transition-colors hover:border-gold hover:text-gold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold aria-pressed:border-gold aria-pressed:bg-gold aria-pressed:text-ink"
       >
         {t('highContrast', language)}
       </button>
@@ -44,7 +44,7 @@ function Toolbar() {
         type="button"
         aria-pressed={simpleLanguage}
         onClick={() => setSimpleLanguage((v) => !v)}
-        className="rounded border border-slate-400 px-3 py-1 text-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-800"
+        className="rounded-full border border-chalk/30 px-3 py-1.5 text-sm text-chalk transition-colors hover:border-teal hover:text-teal focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal aria-pressed:border-teal aria-pressed:bg-teal aria-pressed:text-ink"
       >
         {t('simpleLanguage', language)}
       </button>
@@ -62,22 +62,34 @@ function AppShell() {
   }, [language, isRtl])
 
   return (
-    <div className={`min-h-screen bg-white text-slate-900 dark:bg-slate-900 dark:text-white ${highContrast ? 'hc' : ''}`}>
+    <div className={`min-h-screen bg-chalk text-ink dark:bg-ink dark:text-chalk ${highContrast ? 'hc' : ''}`}>
       <a
         href="#main-content"
-        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded focus:bg-blue-600 focus:px-4 focus:py-2 focus:text-white"
+        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-full focus:bg-gold focus:px-4 focus:py-2 focus:font-semibold focus:text-ink"
       >
         {t('skipToContent', language)}
       </a>
 
       {onboarded ? (
         <>
-          <header>
-            <h1 className="px-6 pt-6 text-2xl font-semibold">{t('appName', language)}</h1>
-            <p className="px-6 pb-2 text-sm text-slate-600 dark:text-slate-300">{t('tagline', language)}</p>
+          <header
+            className="relative overflow-hidden bg-ink text-chalk"
+            style={{
+              backgroundImage:
+                'radial-gradient(ellipse 80% 60% at 15% 0%, rgba(255,182,39,0.16), transparent 60%)',
+            }}
+          >
+            <div className="px-6 pt-6">
+              <h1 className="font-display text-3xl font-black tracking-tight">{t('appName', language)}</h1>
+              <p className="pb-2 pt-1 text-sm text-chalk/70">{t('tagline', language)}</p>
+            </div>
             <Toolbar />
           </header>
-          <main id="main-content" tabIndex={-1} className="mx-auto flex max-w-2xl flex-col gap-8 px-6 py-8 focus-visible:outline focus-visible:outline-2 focus-visible:outline-blue-600">
+          <main
+            id="main-content"
+            tabIndex={-1}
+            className="mx-auto flex max-w-2xl flex-col gap-8 px-6 py-8 focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold"
+          >
             <RouteView />
             <Chat />
           </main>

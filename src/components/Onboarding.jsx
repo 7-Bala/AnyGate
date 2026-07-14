@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useAppContext } from '../context/AppContext.jsx'
 import { t } from '../i18n/strings.js'
 import { VALID_NEEDS } from '../engine/needs.js'
+import NeedGlyph from './NeedGlyph.jsx'
 
 const NEED_LABEL_KEYS = {
   wheelchair: 'needWheelchair',
@@ -39,36 +40,43 @@ export default function Onboarding() {
     <main
       id="main-content"
       tabIndex={-1}
-      className="mx-auto flex min-h-screen max-w-xl flex-col justify-center gap-6 px-6 py-12 focus-visible:outline focus-visible:outline-2 focus-visible:outline-blue-600"
+      className="relative mx-auto flex min-h-screen max-w-xl flex-col justify-center gap-6 bg-ink px-6 py-12 text-chalk focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold"
+      style={{
+        backgroundImage: 'radial-gradient(ellipse 70% 50% at 85% 0%, rgba(255,182,39,0.14), transparent 60%)',
+      }}
       aria-labelledby="onboarding-heading"
     >
-      <h1 id="onboarding-heading" className="text-2xl font-semibold">
+      <h1 id="onboarding-heading" className="font-display text-4xl font-black tracking-tight">
         {t('appName', language)}
       </h1>
 
       {step === 1 && (
         <fieldset className="flex flex-col gap-4">
-          <legend className="text-lg font-medium">{t('onboardNeedsTitle', language)}</legend>
-          <p className="text-sm text-slate-600 dark:text-slate-300">{t('onboardNeedsHint', language)}</p>
+          <legend className="font-display text-xl font-bold">{t('onboardNeedsTitle', language)}</legend>
+          <p className="text-sm text-chalk/70">{t('onboardNeedsHint', language)}</p>
 
           <div className="flex flex-col gap-3">
             {VALID_NEEDS.map((need) => (
-              <label key={need} className="flex items-center gap-3 rounded-lg border border-slate-300 p-3 focus-within:ring-2 focus-within:ring-blue-500 dark:border-slate-600">
+              <label
+                key={need}
+                className="flex items-center gap-3 rounded-xl border border-chalk/20 p-3 transition-colors has-checked:border-gold has-checked:bg-gold/10 focus-within:ring-2 focus-within:ring-gold"
+              >
                 <input
                   type="checkbox"
                   checked={selectedNeeds.includes(need)}
                   onChange={() => toggleNeed(need)}
-                  className="h-5 w-5"
+                  className="h-5 w-5 accent-gold"
                 />
+                <NeedGlyph type={need} className="h-5 w-5 shrink-0 text-gold" />
                 <span>{t(NEED_LABEL_KEYS[need], language)}</span>
               </label>
             ))}
-            <label className="flex items-center gap-3 rounded-lg border border-slate-300 p-3 focus-within:ring-2 focus-within:ring-blue-500 dark:border-slate-600">
+            <label className="flex items-center gap-3 rounded-xl border border-chalk/20 p-3 transition-colors has-checked:border-gold has-checked:bg-gold/10 focus-within:ring-2 focus-within:ring-gold">
               <input
                 type="checkbox"
                 checked={selectedNeeds.length === 0}
                 onChange={() => setSelectedNeeds([])}
-                className="h-5 w-5"
+                className="h-5 w-5 accent-gold"
               />
               <span>{t('needNone', language)}</span>
             </label>
@@ -77,7 +85,7 @@ export default function Onboarding() {
           <button
             type="button"
             onClick={handleNext}
-            className="mt-2 rounded-lg bg-blue-600 px-4 py-3 font-medium text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-800"
+            className="mt-2 rounded-full bg-gold px-4 py-3 font-semibold text-ink transition-transform hover:scale-[1.01] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-chalk"
           >
             {t('next', language)}
           </button>
@@ -86,17 +94,20 @@ export default function Onboarding() {
 
       {step === 2 && (
         <fieldset className="flex flex-col gap-4">
-          <legend className="text-lg font-medium">{t('onboardLanguageTitle', language)}</legend>
+          <legend className="font-display text-xl font-bold">{t('onboardLanguageTitle', language)}</legend>
 
           <div className="flex flex-col gap-3" role="radiogroup" aria-label={t('languageLabel', language)}>
             {LANGUAGES.map(({ code, label }) => (
-              <label key={code} className="flex items-center gap-3 rounded-lg border border-slate-300 p-3 focus-within:ring-2 focus-within:ring-blue-500 dark:border-slate-600">
+              <label
+                key={code}
+                className="flex items-center gap-3 rounded-xl border border-chalk/20 p-3 transition-colors has-checked:border-gold has-checked:bg-gold/10 focus-within:ring-2 focus-within:ring-gold"
+              >
                 <input
                   type="radio"
                   name="language"
                   checked={language === code}
                   onChange={() => setLanguage(code)}
-                  className="h-5 w-5"
+                  className="h-5 w-5 accent-gold"
                 />
                 <span>{label}</span>
               </label>
@@ -107,14 +118,14 @@ export default function Onboarding() {
             <button
               type="button"
               onClick={() => setStep(1)}
-              className="rounded-lg border border-slate-400 px-4 py-3 font-medium focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-800"
+              className="rounded-full border border-chalk/30 px-4 py-3 font-medium text-chalk focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold"
             >
               {t('back', language)}
             </button>
             <button
               type="button"
               onClick={handleFinish}
-              className="flex-1 rounded-lg bg-blue-600 px-4 py-3 font-medium text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-800"
+              className="flex-1 rounded-full bg-gold px-4 py-3 font-semibold text-ink transition-transform hover:scale-[1.01] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-chalk"
             >
               {t('finish', language)}
             </button>

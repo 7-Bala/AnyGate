@@ -9,12 +9,12 @@ export default function NoValidRoute() {
     <section
       role="alert"
       aria-labelledby="no-route-heading"
-      className="flex flex-col gap-4 rounded-xl border-2 border-amber-500 bg-amber-50 p-6 dark:bg-amber-950"
+      className="flex flex-col gap-4 rounded-2xl border-2 border-gold bg-ink p-6 text-chalk"
     >
-      <h2 id="no-route-heading" className="text-xl font-semibold text-amber-900 dark:text-amber-100">
+      <h2 id="no-route-heading" className="font-display text-2xl font-bold text-gold">
         {t('noRouteTitle', language)}
       </h2>
-      <p className="text-amber-900 dark:text-amber-100">{t('noRouteBody', language)}</p>
+      <p className="text-chalk/85">{t('noRouteBody', language)}</p>
       <StaffAssistanceButton />
     </section>
   )

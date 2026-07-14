@@ -1,11 +1,47 @@
 @import "tailwindcss";
 
+/*
+  Any Gate design tokens — stadium-signage palette.
+  Contrast-audited (WCAG 2.1): see README for the full ratio table.
+
+  Rule: gold/coral/teal are text-safe (>=4.5:1) only on dark surfaces
+  (ink or black). On chalk/white surfaces, use the "-strong" (darkened)
+  variant for text, or — preferred — use the accent as a badge/chip FILL
+  with ink or chalk text on top rather than as bare colored text.
+*/
+@theme {
+  --color-ink: #14192e;
+  --color-gold: #ffb627;
+  --color-gold-strong: #a35a00;
+  --color-coral: #ff5a5f;
+  --color-coral-strong: #d53035;
+  --color-teal: #1fbaa6;
+  --color-teal-strong: #00806c;
+  --color-chalk: #fbf7ee;
+  --color-turf: #0e3b2e;
+
+  /* High-contrast mode: a deliberate separate theme, not a saturation
+     bump. Pure black/white base; coral is lightened from the standard
+     token specifically to clear AAA (7:1) on black — gold and teal
+     already exceed AAA unmodified. */
+  --color-hc-bg: #000000;
+  --color-hc-text: #ffffff;
+  --color-hc-gold: #ffb627;
+  --color-hc-teal: #1fbaa6;
+  --color-hc-coral: #ff6469;
+
+  --font-display: "Big Shoulders Display", "Arial Narrow", sans-serif;
+  --font-body: "IBM Plex Sans", "IBM Plex Sans Arabic", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", monospace;
+}
+
 :root {
   color-scheme: light dark;
 }
 
 body {
   margin: 0;
+  font-family: var(--font-body);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -19,22 +55,124 @@ body {
   }
 }
 
-/* High-contrast mode: applied via a class toggle in component state
-   (no localStorage persistence, per spec). Forces a pure black/white
-   palette with visible borders rather than relying on per-component
-   Tailwind color variants, so the override is consistent everywhere. */
+/* Gate Badge power-on sweep (hero recommendation, first render only).
+   Reduced-motion fallback lives in the component: it skips rendering
+   this class entirely and shows the end state immediately plus a
+   static "live" dot, rather than relying on the animation being
+   merely shortened. */
+@keyframes gate-badge-power-on {
+  0% {
+    opacity: 0;
+    transform: scale(0.92);
+    filter: brightness(0.6);
+  }
+  60% {
+    opacity: 1;
+    filter: brightness(1.15);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+    filter: brightness(1);
+  }
+}
+
+.gate-badge-power-on {
+  animation: gate-badge-power-on 520ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Congestion ring pulse — speed maps to congestion level (set via
+   --pulse-duration inline). Reduced-motion fallback (component-driven):
+   the ring uses a static stroke-width/opacity instead of this class. */
+@keyframes gate-badge-pulse {
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.gate-badge-pulse {
+  animation: gate-badge-pulse var(--pulse-duration, 2.4s) ease-in-out infinite;
+}
+
+/* Alert banner entrance. Reduced-motion fallback: component skips this
+   class, banner appears in place at full opacity immediately — the
+   coral color, icon, and role="alert" still carry the urgency. */
+@keyframes alert-slide-in {
+  0% {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+  70% {
+    transform: translateY(2px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.alert-slide-in {
+  animation: alert-slide-in 420ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Alternates strip stagger. Reduced-motion fallback: component applies
+   no delay/transform classes, all items render simultaneously. */
+@keyframes stagger-in {
+  0% {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.stagger-in {
+  animation: stagger-in 360ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/*
+  High-contrast mode. A deliberate theme swap (class toggle in component
+  state, no localStorage), not a bolted-on filter: pure black background,
+  pure white text/borders, and the three accent hues at AAA-verified
+  strength (see --color-hc-* above). Congestion state is still shown as
+  text/number everywhere it appears, so this mode never relies on color
+  alone even before considering contrast.
+*/
 .hc {
-  background: #000 !important;
-  color: #fff !important;
+  background: var(--color-hc-bg) !important;
+  color: var(--color-hc-text) !important;
 }
 
 .hc * {
-  background-color: #000 !important;
-  color: #fff !important;
-  border-color: #fff !important;
+  background-color: var(--color-hc-bg) !important;
+  color: var(--color-hc-text) !important;
+  border-color: var(--color-hc-text) !important;
 }
 
 .hc a,
 .hc button {
   text-decoration: underline;
+}
+
+.hc [data-accent="gold"] {
+  color: var(--color-hc-gold) !important;
+}
+
+.hc [data-accent="coral"] {
+  color: var(--color-hc-coral) !important;
+}
+
+.hc [data-accent="teal"] {
+  color: var(--color-hc-teal) !important;
+}
+
+.hc [data-badge-plate] {
+  background-color: var(--color-hc-bg) !important;
+  border: 2px solid var(--color-hc-text) !important;
 }
