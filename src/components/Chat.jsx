@@ -131,7 +131,8 @@ export default function Chat() {
       const data = await res.json()
       if (!data.audioContent) return
 
-      const audio = new Audio(`data:audio/mp3;base64,${data.audioContent}`)
+      const mime = data.mimeType || 'audio/mp3'
+      const audio = new Audio(`data:${mime};base64,${data.audioContent}`)
       audioPlayerRef.current = audio
       audio.onended = () => setPlayingId(null)
       setPlayingId(message.id)

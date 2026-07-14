@@ -26,13 +26,13 @@ export async function handleTextToSpeech(req, res) {
   }
 
   try {
-    const audioContent = await textToSpeech({
+    const { audioContent, mimeType } = await textToSpeech({
       text: text.slice(0, MAX_TEXT_LENGTH),
       languageCode,
       voiceName,
       audioEncoding,
     })
-    res.json({ audioContent })
+    res.json({ audioContent, mimeType })
   } catch (err) {
     console.error('text-to-speech proxy error:', err.message)
     res.status(502).json({ error: 'Text-to-speech is temporarily unavailable.' })
