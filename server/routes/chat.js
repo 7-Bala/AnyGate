@@ -1,4 +1,4 @@
-import { sendChatMessage } from '../services/claudeClient.js'
+import { sendChatMessage } from '../services/geminiClient.js'
 import { sanitizeUserInput } from '../middleware/sanitizeInput.js'
 import { buildChatSystemPrompt } from '../prompts/chatSystemPrompt.js'
 
@@ -15,7 +15,7 @@ function parseChatResponse(raw) {
       }
     }
   } catch {
-    // Claude didn't return valid JSON — fall back to the raw text below
+    // Gemini didn't return valid JSON — fall back to the raw text below
     // rather than failing the request.
   }
   return { reply: raw, urgency: 'normal', escalate: false }

@@ -9,7 +9,7 @@ const FAKE_TAG_PATTERN = /<\s*\/?\s*(system|instructions?)\s*>/gi
 
 // Basic defense-in-depth against prompt injection in free text. This is not
 // a complete guard on its own — the system prompt additionally instructs
-// Claude to treat fan input as untrusted data, never as instructions, and
+// Gemini to treat fan input as untrusted data, never as instructions, and
 // to only assert facts present in the supplied facility/score data.
 export function sanitizeUserInput(rawInput) {
   if (typeof rawInput !== 'string') return ''

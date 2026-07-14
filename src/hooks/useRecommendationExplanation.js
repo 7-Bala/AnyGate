@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 
 // Fetches a plain-language GenAI explanation of a recommendation the
-// deterministic engine already computed. Claude explains an existing
+// deterministic engine already computed. Gemini explains an existing
 // score/breakdown here — it never computes or overrides it.
 //
 // Depends on facilityId (a primitive), not the `result` object itself:
