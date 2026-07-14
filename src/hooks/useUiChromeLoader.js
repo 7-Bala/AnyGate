@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { useAppContext } from '../context/AppContext.jsx'
+import { useAppContext } from '../context/useAppContext.js'
 import { HAND_VERIFIED_LANGUAGES } from '../i18n/languages.js'
 
 // Client-side cache on top of the server's own cache — avoids a network

@@ -1,4 +1,4 @@
-import { useAppContext } from '../context/AppContext.jsx'
+import { useAppContext } from '../context/useAppContext.js'
 import { UI_STRINGS } from './strings.js'
 import { HAND_VERIFIED_LANGUAGES } from './languages.js'
 

@@ -1,9 +1,10 @@
 import { useState } from 'react'
-import { useAppContext } from '../context/AppContext.jsx'
+import { useAppContext } from '../context/useAppContext.js'
 import { useT } from '../i18n/useT.js'
 import { LANGUAGES } from '../i18n/languages.js'
 import { VALID_NEEDS } from '../engine/needs.js'
 import NeedGlyph from './NeedGlyph.jsx'
+import { CompassIcon } from './icons.jsx'
 
 const NEED_LABEL_KEYS = {
   wheelchair: 'needWheelchair',
@@ -74,19 +75,7 @@ export default function Onboarding() {
                 onChange={() => setSelectedNeeds([])}
                 className="h-5 w-5 accent-gold"
               />
-              <svg viewBox="0 0 24 24" className="h-6 w-6 shrink-0 text-gold" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                {/* compass circle */}
-                <circle cx="12" cy="12" r="9.5" strokeWidth="1.8" />
-                {/* N needle — filled gold tip */}
-                <polygon points="12,4 10.5,12 12,10.5 13.5,12" fill="currentColor" stroke="none" />
-                {/* S needle — outline */}
-                <polygon points="12,20 13.5,12 12,13.5 10.5,12" fill="none" strokeWidth="1.5" />
-                {/* cardinal tick marks */}
-                <line x1="12" y1="3" x2="12" y2="5" strokeWidth="1.8" />
-                <line x1="12" y1="19" x2="12" y2="21" strokeWidth="1.8" />
-                <line x1="3" y1="12" x2="5" y2="12" strokeWidth="1.8" />
-                <line x1="19" y1="12" x2="21" y2="12" strokeWidth="1.8" />
-              </svg>
+              <CompassIcon className="h-6 w-6 shrink-0 text-gold" />
               <span>{t('needNone')}</span>
             </label>
           </div>

@@ -1,7 +1,8 @@
-import { useAppContext } from '../context/AppContext.jsx'
+import { useAppContext } from '../context/useAppContext.js'
 import { useT } from '../i18n/useT.js'
 import { useTranslated } from '../hooks/useTranslated.js'
 import { useReducedMotion } from '../hooks/useReducedMotion.js'
+import { AlertCircleIcon } from './icons.jsx'
 
 // Watches the live-ranked list for the facility that was actually shown to
 // the fan (shownFacilityId, frozen by RouteView at display time) crossing
@@ -33,11 +34,7 @@ export default function AlertBanner({ rankedGates, shownFacilityId, onSwitch }) 
           className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-ink text-coral"
           aria-hidden="true"
         >
-          <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-            <circle cx="12" cy="12" r="10" />
-            <line x1="12" y1="8" x2="12" y2="12" />
-            <line x1="12" y1="16" x2="12.01" y2="16" />
-          </svg>
+          <AlertCircleIcon className="h-4 w-4" />
         </span>
         <div>
           <p className="font-display text-lg font-bold text-coral-strong dark:text-coral">{t('congestionAlertTitle')}</p>

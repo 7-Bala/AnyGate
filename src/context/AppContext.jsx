@@ -1,6 +1,5 @@
-import { createContext, useContext, useMemo, useState } from 'react'
-
-const AppContext = createContext(null)
+import { useMemo, useState } from 'react'
+import { AppContext } from './appContextInstance.js'
 
 export function AppProvider({ children }) {
   const [onboarded, setOnboarded] = useState(false)
@@ -55,10 +54,4 @@ export function AppProvider({ children }) {
   )
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>
-}
-
-export function useAppContext() {
-  const ctx = useContext(AppContext)
-  if (!ctx) throw new Error('useAppContext must be used within AppProvider')
-  return ctx
 }

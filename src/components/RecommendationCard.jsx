@@ -1,4 +1,4 @@
-import { useAppContext } from '../context/AppContext.jsx'
+import { useAppContext } from '../context/useAppContext.js'
 import { useT } from '../i18n/useT.js'
 import { useTranslated } from '../hooks/useTranslated.js'
 import { useReducedMotion } from '../hooks/useReducedMotion.js'

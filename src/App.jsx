@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
-import { AppProvider, useAppContext } from './context/AppContext.jsx'
+import { AppProvider } from './context/AppContext.jsx'
+import { useAppContext } from './context/useAppContext.js'
 import { useT } from './i18n/useT.js'
 import { LANGUAGES, isRtl } from './i18n/languages.js'
 import { useUiChromeLoader } from './hooks/useUiChromeLoader.js'

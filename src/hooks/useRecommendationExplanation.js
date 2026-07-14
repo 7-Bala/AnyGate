@@ -13,6 +13,7 @@ export function useRecommendationExplanation({ result, allFacilities, language, 
   const [state, setState] = useState({ text: '', loading: false, error: false })
   const facilityId = result?.facility.id ?? null
 
+  /* oxlint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
     if (!facilityId) {
       setState({ text: '', loading: false, error: false })
@@ -45,6 +46,7 @@ export function useRecommendationExplanation({ result, allFacilities, language, 
       cancelled = true
     }
   }, [facilityId, language, simpleLanguage])
+  /* oxlint-enable react-hooks/exhaustive-deps */
 
   return state
 }
