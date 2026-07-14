@@ -1,19 +1,14 @@
 import 'dotenv/config'
-import path from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { dirname, join } from 'node:path'
 import express from 'express'
 import cors from 'cors'
-import { fileURLToPath } from 'url'
-import { dirname, join } from 'path'
 import { startCongestionSimulator, getCongestionSnapshot } from './services/congestionSimulator.js'
 import { rateLimit } from './middleware/rateLimit.js'
 import { handleChat } from './routes/chat.js'
 import { handleTranslate } from './routes/translate.js'
 import { handleTranslateUi } from './routes/translateUi.js'
 import { handleSpeechToText, handleTextToSpeech } from './routes/speech.js'
-
-const __dirname = path.dirname(fileURLToPath(import.meta.url))
-const distDir = path.join(__dirname, '..', 'dist')
 
 const app = express()
 const PORT = process.env.PORT || 3001
@@ -44,35 +39,21 @@ app.post('/api/translate-ui', translateUiLimiter, handleTranslateUi)
 app.post('/api/speech-to-text', speechLimiter, handleSpeechToText)
 app.post('/api/text-to-speech', speechLimiter, handleTextToSpeech)
 
-// Serves the Vite production build (npm run build) so a single deployed
-// process handles both the API and the frontend on one origin — the app's
-// fetch calls use relative /api/... paths, so same-origin is required.
-app.use(express.static(distDir))
-app.use((req, res, next) => {
-  if (req.method !== 'GET' || req.path.startsWith('/api/')) return next()
-  res.sendFile(path.join(distDir, 'index.html'))
-})
-
-startCongestionSimulator()
-
-// ---------------------------------------------------------------------------
-// Production static-file serving
 // Serve the Vite build output so one process handles both the frontend and
 // the /api routes on the same origin — matching the app's relative
-// fetch('/api/...') calls with no CORS or proxy needed.
-// In development the Vite dev server owns the frontend, so this is skipped.
-// ---------------------------------------------------------------------------
+// fetch('/api/...') calls, with no CORS or proxy needed. In development the
+// Vite dev server owns the frontend, so this is skipped.
 if (process.env.NODE_ENV !== 'development') {
   const __dirname = dirname(fileURLToPath(import.meta.url))
   const distDir = join(__dirname, '..', 'dist')
 
   app.use(express.static(distDir))
-
-  // SPA fallback — let React Router handle client-side routes
   app.get('*splat', (_req, res) => {
     res.sendFile(join(distDir, 'index.html'))
   })
 }
+
+startCongestionSimulator()
 
 app.listen(PORT, () => {
   console.log(`AnyGate server listening on port ${PORT}`)
