@@ -40,5 +40,5 @@ app.post('/api/text-to-speech', speechLimiter, handleTextToSpeech)
 startCongestionSimulator()
 
 app.listen(PORT, () => {
-  console.log(`Any Gate server listening on port ${PORT}`)
+  console.log(`AnyGate server listening on port ${PORT}`)
 })

@@ -1,4 +1,4 @@
-# Any Gate
+# AnyGate
 
 Accessibility-first wayfinding assistant for FIFA World Cup 2026.
 

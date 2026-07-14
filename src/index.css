@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 /*
-  Any Gate design tokens — stadium-signage palette.
+  AnyGate design tokens — stadium-signage palette.
   Contrast-audited (WCAG 2.1): see README for the full ratio table.
 
   Rule: gold/coral/teal are text-safe (>=4.5:1) only on dark surfaces

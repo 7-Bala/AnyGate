@@ -8,7 +8,7 @@
 // chrome.
 export const UI_STRINGS = {
   en: {
-    appName: 'Any Gate',
+    appName: 'AnyGate',
     tagline: 'Accessibility-first wayfinding for FIFA World Cup 2026',
     skipToContent: 'Skip to main content',
     onboardNeedsTitle: "What's your accessibility need?",
@@ -42,7 +42,7 @@ export const UI_STRINGS = {
     congestionAlertTitle: 'Heads up — it just got busy there',
     congestionAlertBody: 'crossed its comfort threshold. We recommend switching to:',
     switchTo: 'Switch to this instead',
-    chatTitle: 'Ask Any Gate',
+    chatTitle: 'Ask AnyGate',
     chatPlaceholder: 'Ask a question, e.g. "Where is the nearest accessible restroom?"',
     send: 'Send',
     micStart: 'Start voice input',
@@ -60,7 +60,7 @@ export const UI_STRINGS = {
     translationUnavailable: 'Live translation unavailable — showing English for some labels.',
   },
   es: {
-    appName: 'Any Gate',
+    appName: 'AnyGate',
     tagline: 'Orientación accesible para la Copa Mundial de la FIFA 2026',
     skipToContent: 'Saltar al contenido principal',
     onboardNeedsTitle: '¿Cuál es tu necesidad de accesibilidad?',
@@ -94,7 +94,7 @@ export const UI_STRINGS = {
     congestionAlertTitle: 'Atención — se acaba de llenar ese lugar',
     congestionAlertBody: 'superó su umbral de comodidad. Te recomendamos cambiar a:',
     switchTo: 'Cambiar a esta opción',
-    chatTitle: 'Pregúntale a Any Gate',
+    chatTitle: 'Pregúntale a AnyGate',
     chatPlaceholder: 'Haz una pregunta, ej. "¿Dónde está el baño accesible más cercano?"',
     send: 'Enviar',
     micStart: 'Iniciar entrada de voz',
@@ -112,7 +112,7 @@ export const UI_STRINGS = {
     translationUnavailable: 'Traducción en vivo no disponible — mostrando inglés para algunas etiquetas.',
   },
   ar: {
-    appName: 'Any Gate',
+    appName: 'AnyGate',
     tagline: 'إرشاد يراعي إمكانية الوصول لكأس العالم فيفا 2026',
     skipToContent: 'تخطَّ إلى المحتوى الرئيسي',
     onboardNeedsTitle: 'ما هي احتياجاتك من حيث إمكانية الوصول؟',
@@ -145,7 +145,7 @@ export const UI_STRINGS = {
     congestionAlertTitle: 'تنبيه — أصبح المكان مزدحمًا للتو',
     congestionAlertBody: 'تجاوز حد الراحة الخاص به. نوصي بالتحويل إلى:',
     switchTo: 'التحويل إلى هذا بدلاً منه',
-    chatTitle: 'اسأل Any Gate',
+    chatTitle: 'اسأل AnyGate',
     chatPlaceholder: 'اطرح سؤالاً، مثال: "أين أقرب دورة مياه متاحة؟"',
     send: 'إرسال',
     micStart: 'بدء الإدخال الصوتي',
