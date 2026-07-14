@@ -55,7 +55,7 @@ if (process.env.NODE_ENV !== 'development') {
   app.use(express.static(distDir))
 
   // SPA fallback — let React Router handle client-side routes
-  app.get('*', (_req, res) => {
+  app.get('*splat', (_req, res) => {
     res.sendFile(join(distDir, 'index.html'))
   })
 }
