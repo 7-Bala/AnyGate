@@ -162,9 +162,18 @@ process, not just a checklist item:
 
 ```bash
 npm install
-cp .env.example .env   # fill in GEMINI_API_KEY, GOOGLE_TRANSLATE_API_KEY, GOOGLE_CLOUD_API_KEY
-
+cp .env.example .env   # fill in GEMINI_API_KEY
 npm run dev             # frontend (Vite)
 npm run server:dev      # backend (Express)
 npm test                # 18 unit tests on the deterministic engine
 ```
+
+## Deployment (Free & Persistent)
+
+The app is fully configured for a **one-click free deployment** to [Render](https://render.com) using the included `render.yaml` blueprint.
+
+1. Create a free account on [Render](https://render.com) and link your GitHub account.
+2. Create a new **Blueprint** from your Render dashboard.
+3. Connect the **AnyGate** repository.
+4. Input your `GEMINI_API_KEY` (from Google AI Studio) when prompted.
+5. Click **Apply** to deploy. Render will automatically build the frontend, spin up the persistent Express server, and host it under a free `onrender.com` domain.
