@@ -1,6 +1,8 @@
 import 'dotenv/config'
 import express from 'express'
 import cors from 'cors'
+import { fileURLToPath } from 'url'
+import { dirname, join } from 'path'
 import { startCongestionSimulator, getCongestionSnapshot } from './services/congestionSimulator.js'
 import { rateLimit } from './middleware/rateLimit.js'
 import { handleChat } from './routes/chat.js'
@@ -38,6 +40,25 @@ app.post('/api/speech-to-text', speechLimiter, handleSpeechToText)
 app.post('/api/text-to-speech', speechLimiter, handleTextToSpeech)
 
 startCongestionSimulator()
+
+// ---------------------------------------------------------------------------
+// Production static-file serving
+// Serve the Vite build output so one process handles both the frontend and
+// the /api routes on the same origin — matching the app's relative
+// fetch('/api/...') calls with no CORS or proxy needed.
+// In development the Vite dev server owns the frontend, so this is skipped.
+// ---------------------------------------------------------------------------
+if (process.env.NODE_ENV !== 'development') {
+  const __dirname = dirname(fileURLToPath(import.meta.url))
+  const distDir = join(__dirname, '..', 'dist')
+
+  app.use(express.static(distDir))
+
+  // SPA fallback — let React Router handle client-side routes
+  app.get('*', (_req, res) => {
+    res.sendFile(join(distDir, 'index.html'))
+  })
+}
 
 app.listen(PORT, () => {
   console.log(`AnyGate server listening on port ${PORT}`)
