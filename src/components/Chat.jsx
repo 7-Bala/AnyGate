@@ -89,9 +89,9 @@ export default function Chat() {
           if (!res.ok) throw new Error('speech-to-text failed')
           const data = await res.json()
           if (data.transcript) setInput(data.transcript)
-          else setVoiceError('No speech detected — please try again.')
+          else setVoiceError(t('voiceNoSpeech', language))
         } catch {
-          setVoiceError('Voice input is temporarily unavailable.')
+          setVoiceError(t('voiceUnavailable', language))
         }
       }
 
@@ -99,7 +99,7 @@ export default function Chat() {
       recorder.start()
       setRecording(true)
     } catch {
-      setVoiceError('Microphone access was denied or unavailable.')
+      setVoiceError(t('micDenied', language))
     }
   }
 
@@ -135,7 +135,7 @@ export default function Chat() {
       setPlayingId(message.id)
       audio.play()
     } catch {
-      setVoiceError('Read-aloud is temporarily unavailable.')
+      setVoiceError(t('readAloudUnavailable', language))
     }
   }
 
@@ -158,7 +158,9 @@ export default function Chat() {
             {message.urgent && (
               <p className="mb-2 font-semibold text-red-700 dark:text-red-300">{t('urgentBanner', language)}</p>
             )}
-            <p>{message.text}</p>
+            <p>
+              <bdi>{message.text}</bdi>
+            </p>
             {message.role === 'assistant' && (
               <button
                 type="button"

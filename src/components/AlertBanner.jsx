@@ -26,7 +26,10 @@ export default function AlertBanner({ rankedGates, shownFacilityId, onSwitch }) 
       <div>
         <p className="font-semibold text-red-900 dark:text-red-100">{t('congestionAlertTitle', language)}</p>
         <p className="text-red-900 dark:text-red-100">
-          {facilityName} {t('congestionAlertBody', language)} <strong>{alternateName}</strong>
+          <bdi>{facilityName}</bdi> {t('congestionAlertBody', language)}{' '}
+          <strong>
+            <bdi>{alternateName}</bdi>
+          </strong>
         </p>
       </div>
       <button

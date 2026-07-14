@@ -77,7 +77,7 @@ function AppShell() {
             <p className="px-6 pb-2 text-sm text-slate-600 dark:text-slate-300">{t('tagline', language)}</p>
             <Toolbar />
           </header>
-          <main id="main-content" className="mx-auto flex max-w-2xl flex-col gap-8 px-6 py-8">
+          <main id="main-content" tabIndex={-1} className="mx-auto flex max-w-2xl flex-col gap-8 px-6 py-8 focus-visible:outline focus-visible:outline-2 focus-visible:outline-blue-600">
             <RouteView />
             <Chat />
           </main>

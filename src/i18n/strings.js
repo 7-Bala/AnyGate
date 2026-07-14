@@ -49,6 +49,10 @@ export const UI_STRINGS = {
     urgentBanner: 'This may be urgent.',
     liveLabel: 'live',
     unknownLabel: 'unknown',
+    voiceNoSpeech: 'No speech detected — please try again.',
+    voiceUnavailable: 'Voice input is temporarily unavailable.',
+    micDenied: 'Microphone access was denied or unavailable.',
+    readAloudUnavailable: 'Read-aloud is temporarily unavailable.',
   },
   es: {
     appName: 'Any Gate',
@@ -93,6 +97,10 @@ export const UI_STRINGS = {
     urgentBanner: 'Esto puede ser urgente.',
     liveLabel: 'en vivo',
     unknownLabel: 'desconocido',
+    voiceNoSpeech: 'No se detectó voz — inténtalo de nuevo.',
+    voiceUnavailable: 'La entrada de voz no está disponible en este momento.',
+    micDenied: 'Se denegó el acceso al micrófono o no está disponible.',
+    readAloudUnavailable: 'La lectura en voz alta no está disponible en este momento.',
   },
   ar: {
     appName: 'Any Gate',
@@ -136,6 +144,10 @@ export const UI_STRINGS = {
     urgentBanner: 'قد يكون هذا عاجلاً.',
     liveLabel: 'مباشر',
     unknownLabel: 'غير معروف',
+    voiceNoSpeech: 'لم يتم رصد أي صوت — يرجى المحاولة مرة أخرى.',
+    voiceUnavailable: 'الإدخال الصوتي غير متاح حاليًا.',
+    micDenied: 'تم رفض الوصول إلى الميكروفون أو أنه غير متاح.',
+    readAloudUnavailable: 'القراءة بصوت عالٍ غير متاحة حاليًا.',
   },
 }
 

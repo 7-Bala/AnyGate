@@ -38,7 +38,8 @@ export default function Onboarding() {
   return (
     <main
       id="main-content"
-      className="mx-auto flex min-h-screen max-w-xl flex-col justify-center gap-6 px-6 py-12"
+      tabIndex={-1}
+      className="mx-auto flex min-h-screen max-w-xl flex-col justify-center gap-6 px-6 py-12 focus-visible:outline focus-visible:outline-2 focus-visible:outline-blue-600"
       aria-labelledby="onboarding-heading"
     >
       <h1 id="onboarding-heading" className="text-2xl font-semibold">

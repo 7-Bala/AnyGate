@@ -4,7 +4,11 @@ import { useTranslated } from '../hooks/useTranslated.js'
 
 function TranslatedNote({ note, language }) {
   const translated = useTranslated(note, language)
-  return <li>{translated}</li>
+  return (
+    <li>
+      <bdi>{translated}</bdi>
+    </li>
+  )
 }
 
 export default function RecommendationCard({ result, explanation, headingId }) {
@@ -16,9 +20,11 @@ export default function RecommendationCard({ result, explanation, headingId }) {
   return (
     <article className="flex flex-col gap-3 rounded-xl border border-slate-300 p-5 dark:border-slate-600">
       <h3 id={headingId} className="text-lg font-semibold">
-        {name}
+        <bdi>{name}</bdi>
       </h3>
-      <p className="text-sm text-slate-600 dark:text-slate-300">{transitNote}</p>
+      <p className="text-sm text-slate-600 dark:text-slate-300">
+        <bdi>{transitNote}</bdi>
+      </p>
       <p className="text-sm">
         <span className="font-medium">{t('congestionLabel', language)}:</span>{' '}
         {result.breakdown.congestionValue ?? '—'}/100 ({congestionLabel}) · Score {result.score}/100
