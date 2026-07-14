@@ -74,9 +74,18 @@ export default function Onboarding() {
                 onChange={() => setSelectedNeeds([])}
                 className="h-5 w-5 accent-gold"
               />
-              <svg viewBox="0 0 24 24" className="h-6 w-6 shrink-0 text-gold" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                <circle cx="12" cy="12" r="10" />
-                <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76" />
+              <svg viewBox="0 0 24 24" className="h-6 w-6 shrink-0 text-gold" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                {/* compass circle */}
+                <circle cx="12" cy="12" r="9.5" strokeWidth="1.8" />
+                {/* N needle — filled gold tip */}
+                <polygon points="12,4 10.5,12 12,10.5 13.5,12" fill="currentColor" stroke="none" />
+                {/* S needle — outline */}
+                <polygon points="12,20 13.5,12 12,13.5 10.5,12" fill="none" strokeWidth="1.5" />
+                {/* cardinal tick marks */}
+                <line x1="12" y1="3" x2="12" y2="5" strokeWidth="1.8" />
+                <line x1="12" y1="19" x2="12" y2="21" strokeWidth="1.8" />
+                <line x1="3" y1="12" x2="5" y2="12" strokeWidth="1.8" />
+                <line x1="19" y1="12" x2="21" y2="12" strokeWidth="1.8" />
               </svg>
               <span>{t('needNone')}</span>
             </label>
