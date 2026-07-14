@@ -27,7 +27,7 @@ export default function RecommendationCard({ result, explanation, headingId }) {
       </p>
       <p className="text-sm">
         <span className="font-medium">{t('congestionLabel', language)}:</span>{' '}
-        {result.breakdown.congestionValue ?? '—'}/100 ({congestionLabel}) · Score {result.score}/100
+        {result.breakdown.congestionValue ?? '—'}/100 ({congestionLabel}) · {t('scoreLabel', language)} {result.score}/100
       </p>
 
       {explanation && (
@@ -38,7 +38,9 @@ export default function RecommendationCard({ result, explanation, headingId }) {
       )}
 
       <details>
-        <summary className="cursor-pointer text-sm font-medium">{t('whyTitle', language)} — details</summary>
+        <summary className="cursor-pointer text-sm font-medium">
+          {t('whyTitle', language)} — {t('detailsLabel', language)}
+        </summary>
         <ul className="mt-2 list-disc space-y-1 pl-5 text-sm">
           {result.notes.map((note) => (
             <TranslatedNote key={note} note={note} language={language} />
