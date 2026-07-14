@@ -44,33 +44,26 @@ const PATHS = {
     </g>
   ),
 
-  // Speaker / ear with waves + slash — "sound off" = hearing impairment
+  // International Symbol for Deafness - matching the 2nd user image
   hearing_impairment: (
-    <>
-      {/* speaker box */}
-      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" strokeWidth="1.9" />
-      {/* sound wave 1 */}
-      <path d="M15.54 8.46a5 5 0 0 1 0 7.07" strokeWidth="1.9" />
-      {/* sound wave 2 */}
-      <path d="M19.07 4.93a10 10 0 0 1 0 14.14" strokeWidth="1.9" />
-      {/* slash across it */}
-      <line x1="1" y1="1" x2="23" y2="23" strokeWidth="2" strokeLinecap="round" />
-    </>
+    <g transform="scale(0.065)" fill="currentColor">
+      <path d="M48.8 369H0v-55.9l85.7-86.7c22.2 12.8 45.8 27.2 64.9 39.5L48.8 369Zm10.4-220.7c-.7-.6-1.3-1.5-1-2.9 4.4-20.9 13.7-40.4 28.5-55.9 12.3-12.8 28.2-22.4 45.4-28.1 11.4-3.8 23.3-5.4 35.3-5.4 36.8.2 71.9 19.5 92 50.3 21.5 32.8 24.6 73.8 6.2 112.2-7 14.5-15.9 23.4-26.6 33.4-10 9.2-17.6 18-23.9 25.9-7.6 9.4-13.2 17.9-16.5 25.8-5.7 13.5-9 22.2-19.5 31.6-7.6 6.8-16.6 11.2-26.8 12.1-16.4 1.6-28.8-2.7-38-10.2-1.4-1.1-3.2-4.1-3.3-7-.1-5.2 2.8-8.4 8.1-8.5 3.1 0 4.9 1.9 7.7 3.8 10 6.8 23 8.8 36.3.5 11.6-7.4 16.8-25.2 23.5-37.7 10.8-20.4 26.3-38.1 43.2-53.6 25.1-23.2 36-58.6 24.9-94.6-5.8-19.1-17.9-36.1-34.3-47.8-10.5-7.5-23.3-13.1-36.4-15.5-19.7-3.7-38.2-2.3-58.6 8-13.6 6.8-26 18.2-34.4 30.5-8.4 12.2-13.4 25.9-15.1 40.7-.1.5-.5.8-1.1.6-.5-.2-1.1-.4-1.6-.7-5.6-2.3-9.8-4.5-14-7.5Zm39.4-9.5c-.9-.7-1.1-1.6-.6-2.8 7.7-17.1 21.1-31 38.2-38.8 10.1-4.5 21.2-7 32.3-6.9 19.4.1 38.5 7.8 52.6 21.2 17.7 16.9 26.3 42.1 22.9 66.3-1.9 13.8-7.2 28.6-16.3 37.4-.2.2-.5.4-1 .4-3.1-.4-6-1.3-9.4-4.2-1.2-1-1.7-1.5-2.3-2.3-.3-.4-.4-1.2.1-1.9 7.3-8.6 12.3-20.6 13.9-31.8 2.6-18.7-6-38.6-19.7-51.7-10.9-10.4-19.9-16.6-41.7-16.5-21.8.2-41.7 10.5-52.9 32-.8 1.6-1.6 3.3-2.2 4.9-.3.7-1 1-2 .7-1.6-.4-3.2-.7-4.7-1.4-3.1-1.4-5-2.9-7.2-4.6ZM244 66l65.3-66H360v53.9s-59.3 60.2-71.4 72.3c-.7.7-1.1.7-1.3-.1C279.1 102 263.8 81.2 244 66Z"/>
+    </g>
   ),
 
-  // Headphones + wavy lines = sensory overload / noise sensitivity
+  // Sensory sensitivity (tactile sensitivity/overload) - matching the 1st user image
   sensory_sensitive: (
-    <>
-      {/* headband arc */}
-      <path d="M6 12 A6 6 0 0 1 18 12" strokeWidth="1.9" />
-      {/* left earpad */}
-      <rect x="3.5" y="12" width="4.5" height="6" rx="1.5" strokeWidth="1.9" />
-      {/* right earpad */}
-      <rect x="16" y="12" width="4.5" height="6" rx="1.5" strokeWidth="1.9" />
-      {/* stimulus waves at top (sensory input) */}
-      <path d="M9 7 Q10 5 11 7 Q12 9 13 7 Q14 5 15 7" strokeWidth="1.5" strokeLinecap="round" />
-      <path d="M10.5 4 Q11.25 2.5 12 4 Q12.75 5.5 13.5 4" strokeWidth="1.3" strokeLinecap="round" />
-    </>
+    <g transform="scale(0.24)" fill="currentColor">
+      {/* Hand silhouette */}
+      <path d="M38 90h24V78c0-3 4-6 7-12V34c0-2.5-4.5-2.5-4.5 0v24h-1.5V22c0-2.5-4.5-2.5-4.5 0v24h-1.5V17c0-2.5-4.5-2.5-4.5 0v24h-1.5V12c0-2.5-4.5-2.5-4.5 0v48h-3c-3 0-6-5-8-10l-6-12c-2-4-5-1-5 2 0 7 7 17 10 25v13z" />
+      {/* 6 wavy sensory lines around the hand */}
+      <path d="M 11 5 C 15 13 25 9 26 21" fill="none" stroke="currentColor" strokeWidth="8" strokeLinecap="round" />
+      <path d="M 2 32 C 8 28 14 38 20 34" fill="none" stroke="currentColor" strokeWidth="8" strokeLinecap="round" />
+      <path d="M 2 54 C 8 50 14 60 20 56" fill="none" stroke="currentColor" strokeWidth="8" strokeLinecap="round" />
+      <path d="M 89 7 C 85 15 75 11 74 23" fill="none" stroke="currentColor" strokeWidth="8" strokeLinecap="round" />
+      <path d="M 78 38 C 84 34 90 44 96 40" fill="none" stroke="currentColor" strokeWidth="8" strokeLinecap="round" />
+      <path d="M 78 60 C 84 56 90 66 96 62" fill="none" stroke="currentColor" strokeWidth="8" strokeLinecap="round" />
+    </g>
   ),
 }
 
