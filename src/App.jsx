@@ -32,18 +32,26 @@ function Toolbar() {
         type="button"
         aria-pressed={highContrast}
         onClick={() => setHighContrast((v) => !v)}
-        className="rounded-full border border-chalk/30 px-3 py-1.5 text-sm text-chalk transition-colors hover:border-gold hover:text-gold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold aria-pressed:border-gold aria-pressed:bg-gold aria-pressed:text-ink"
+        className="flex items-center gap-1.5 rounded-full border border-chalk/30 px-3 py-1.5 text-sm text-chalk transition-colors hover:border-gold hover:text-gold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold aria-pressed:border-gold aria-pressed:bg-gold aria-pressed:text-ink"
       >
-        {t('highContrast')}
+        <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="10" />
+          <path d="M12 18a6 6 0 0 0 0-12v12z" fill="currentColor" />
+        </svg>
+        <span>{t('highContrast')}</span>
       </button>
 
       <button
         type="button"
         aria-pressed={simpleLanguage}
         onClick={() => setSimpleLanguage((v) => !v)}
-        className="rounded-full border border-chalk/30 px-3 py-1.5 text-sm text-chalk transition-colors hover:border-teal hover:text-teal focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal aria-pressed:border-teal aria-pressed:bg-teal aria-pressed:text-ink"
+        className="flex items-center gap-1.5 rounded-full border border-chalk/30 px-3 py-1.5 text-sm text-chalk transition-colors hover:border-teal hover:text-teal focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal aria-pressed:border-teal aria-pressed:bg-teal aria-pressed:text-ink"
       >
-        {t('simpleLanguage')}
+        <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
+          <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
+        </svg>
+        <span>{t('simpleLanguage')}</span>
       </button>
     </div>
   )

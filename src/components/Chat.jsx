@@ -170,13 +170,30 @@ export default function Chat() {
               <button
                 type="button"
                 onClick={() => toggleReadAloud(message)}
-                className={`mt-2 text-xs font-semibold underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 ${
+                className={`mt-2 flex items-center gap-1.5 text-xs font-semibold underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 ${
                   message.urgent
                     ? 'text-gold focus-visible:outline-chalk'
                     : 'text-teal-strong focus-visible:outline-teal dark:text-teal'
                 }`}
               >
-                {playingId === message.id ? t('stopReading') : t('readAloud')}
+                {playingId === message.id ? (
+                  <>
+                    <svg viewBox="0 0 24 24" className="h-3.5 w-3.5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+                      <line x1="23" y1="9" x2="17" y2="15" />
+                      <line x1="17" y1="9" x2="23" y2="15" />
+                    </svg>
+                    <span>{t('stopReading')}</span>
+                  </>
+                ) : (
+                  <>
+                    <svg viewBox="0 0 24 24" className="h-3.5 w-3.5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+                      <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07" />
+                    </svg>
+                    <span>{t('readAloud')}</span>
+                  </>
+                )}
               </button>
             )}
             {message.urgent && (
@@ -211,16 +228,30 @@ export default function Chat() {
           onClick={recording ? stopRecording : startRecording}
           aria-pressed={recording}
           aria-label={recording ? t('micStop') : t('micStart')}
-          className="rounded-full border border-ink/25 px-3 py-2 transition-colors aria-pressed:border-coral aria-pressed:bg-coral/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal dark:border-chalk/25"
+          className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-ink/25 transition-colors aria-pressed:border-coral aria-pressed:bg-coral/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal dark:border-chalk/25"
         >
-          {recording ? '⏹' : '🎤'}
+          {recording ? (
+            <svg viewBox="0 0 24 24" className="h-5 w-5 text-coral" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <rect x="4" y="4" width="16" height="16" rx="2" />
+            </svg>
+          ) : (
+            <svg viewBox="0 0 24 24" className="h-5 w-5 text-ink dark:text-chalk" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z" />
+              <path d="M19 10v2a7 7 0 0 1-14 0v-2" />
+              <line x1="12" y1="19" x2="12" y2="22" />
+            </svg>
+          )}
         </button>
         <button
           type="submit"
           disabled={sending}
-          className="rounded-full bg-gold px-4 py-2 font-semibold text-ink transition-transform hover:scale-[1.02] disabled:opacity-60 disabled:hover:scale-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal"
+          className="flex items-center gap-1.5 rounded-full bg-gold px-4 py-2 font-semibold text-ink transition-transform hover:scale-[1.02] disabled:opacity-60 disabled:hover:scale-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal"
         >
-          {t('send')}
+          <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <line x1="22" y1="2" x2="11" y2="13" />
+            <polygon points="22 2 15 22 11 13 2 9 22 2" />
+          </svg>
+          <span>{t('send')}</span>
         </button>
       </form>
     </section>
