@@ -21,23 +21,19 @@ const PATHS = {
     </>
   ),
 
-  // Elderly person with walking cane — person profile + cane
+  // Person leaning on a walker - matching user image
   limited_mobility: (
     <>
       {/* head */}
-      <circle cx="9.5" cy="3.5" r="1.6" fill="currentColor" stroke="none" />
-      {/* body */}
-      <path d="M9.5 5.1 L9.5 12" strokeWidth="1.9" />
-      {/* left leg */}
-      <path d="M9.5 12 L7.5 19" strokeWidth="1.9" />
-      {/* right leg */}
-      <path d="M9.5 12 L11.5 19" strokeWidth="1.9" />
-      {/* arm reaching to cane */}
-      <path d="M9.5 8.5 L13.5 10" strokeWidth="1.9" />
-      {/* cane */}
-      <path d="M13.5 10 L15.5 20" strokeWidth="1.9" />
-      {/* curved handle at top */}
-      <path d="M13.5 10 Q12.5 8 11 8.5" strokeWidth="1.7" />
+      <circle cx="13.5" cy="5.5" r="2" strokeWidth="1.9" />
+      {/* back, shoulder, and arm reaching down/right to walker */}
+      <path d="M8.5 13 C8 9.5 10.5 7.5 11.5 8 C12.5 8.5 13.5 10.5 14.5 12" strokeWidth="1.9" />
+      {/* bent leg */}
+      <path d="M8.5 13 L6.5 16.5 C5.8 18.5 7 20.5 8.5 20.5 C10 20.5 10.2 18.5 9.8 13" strokeWidth="1.9" fill="none" />
+      {/* walker frame */}
+      <path d="M12.5 21 L13.2 13.5 C13.4 12.2 16.6 12.2 16.8 13.5 L17.5 21" strokeWidth="1.9" />
+      {/* walker horizontal bar */}
+      <path d="M13.1 16.2 L16.9 16.2" strokeWidth="1.9" />
     </>
   ),
 
