@@ -63,7 +63,7 @@ export default function Onboarding() {
                   onChange={() => toggleNeed(need)}
                   className="h-5 w-5 accent-gold"
                 />
-                <NeedGlyph type={need} className="h-5 w-5 shrink-0 text-gold" />
+                <NeedGlyph type={need} className="h-6 w-6 shrink-0 text-gold" />
                 <span>{t(NEED_LABEL_KEYS[need])}</span>
               </label>
             ))}
@@ -74,7 +74,7 @@ export default function Onboarding() {
                 onChange={() => setSelectedNeeds([])}
                 className="h-5 w-5 accent-gold"
               />
-              <svg viewBox="0 0 24 24" className="h-5 w-5 shrink-0 text-gold" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <svg viewBox="0 0 24 24" className="h-6 w-6 shrink-0 text-gold" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                 <circle cx="12" cy="12" r="10" />
                 <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76" />
               </svg>

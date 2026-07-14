@@ -1,6 +1,4 @@
-// Same hand-drawn geometric language as FacilityGlyph. The sensory-
-// sensitivity glyph deliberately reuses the quiet-room wave shape —
-// they mean the same thing wherever they appear.
+// Same hand-drawn geometric language as FacilityGlyph.
 const PATHS = {
   wheelchair: (
     <>
@@ -19,15 +17,15 @@ const PATHS = {
   ),
   hearing_impairment: (
     <>
-      <path d="M6 18.5c-1.4-1.2-2.1-2.9-2.1-4.7 0-3.3 2.7-6 6-6 .5 0 1 .1 1.5.2" />
-      <path d="M12 7.7a8.4 8.4 0 0 1 2.3-1.6" />
-      <path d="M16.1 16.1c-1.3 1.3-3.1 2-4.9 2-3.3 0-6-2.7-6-6 0-1.8.7-3.5 2.1-4.7" />
-      <path d="M2 2l20 20" />
-      <path d="M8.2 12a4 4 0 0 0 4 4" />
+      <path d="M6 18.5c-3-2.5-3-5.2-3-7.5a9 9 0 0 1 18 0c0 4.5-4 8-8 8" />
+      <path d="M12 11.5a4 4 0 0 0-4 4" />
     </>
   ),
   sensory_sensitive: (
-    <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275Z" />
+    <>
+      <path d="M3 18v-6a9 9 0 0 1 18 0v6" />
+      <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z" />
+    </>
   ),
   limited_mobility: (
     <>
@@ -48,7 +46,7 @@ export default function NeedGlyph({ type, className = 'h-6 w-6' }) {
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
-      strokeWidth="1.75"
+      strokeWidth="2.2"
       strokeLinecap="round"
       strokeLinejoin="round"
       className={className}
