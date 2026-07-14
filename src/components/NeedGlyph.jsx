@@ -3,21 +3,17 @@
  * Uses proven Lucide-compatible path geometry tuned for 24×24 viewbox.
  */
 const PATHS = {
-  // ISA-style active wheelchair user (forward-leaning, sport pose)
+  // ISA wheelchair symbol - matching user image
   wheelchair: (
     <>
       {/* head */}
-      <circle cx="12" cy="3.5" r="1.6" fill="currentColor" stroke="none" />
-      {/* body leaning forward */}
-      <path d="M12 5.1 L11 10" strokeWidth="1.9" />
-      {/* outstretched arm pushing wheel */}
-      <path d="M11.5 7.5 L16 9" strokeWidth="1.9" />
-      {/* seat */}
-      <path d="M11 10 L11 13.5 L15.5 13.5" strokeWidth="1.9" />
-      {/* large rear wheel */}
-      <circle cx="11" cy="18" r="4.5" strokeWidth="1.9" />
-      {/* small front caster */}
-      <circle cx="17.5" cy="19.5" r="1.3" strokeWidth="1.7" />
+      <circle cx="10" cy="4.5" r="1.5" fill="currentColor" stroke="none" />
+      {/* body: torso, thigh, and shin/leg in a single connected path */}
+      <path d="M 10,7 L 10,13.5 L 17,13.5 L 21,19.5" strokeWidth="1.9" />
+      {/* arm */}
+      <path d="M 10,9.5 L 16,9.5" strokeWidth="1.9" />
+      {/* wheel (3/4 circular arc) */}
+      <path d="M 9,10 A 5.5 5.5 0 1 0 15.5,15.5" strokeWidth="1.9" />
     </>
   ),
 
