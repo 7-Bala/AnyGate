@@ -1,4 +1,6 @@
 import 'dotenv/config'
+import path from 'node:path'
+import { fileURLToPath } from 'node:url'
 import express from 'express'
 import cors from 'cors'
 import { fileURLToPath } from 'url'
@@ -9,6 +11,9 @@ import { handleChat } from './routes/chat.js'
 import { handleTranslate } from './routes/translate.js'
 import { handleTranslateUi } from './routes/translateUi.js'
 import { handleSpeechToText, handleTextToSpeech } from './routes/speech.js'
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
+const distDir = path.join(__dirname, '..', 'dist')
 
 const app = express()
 const PORT = process.env.PORT || 3001
@@ -38,6 +43,15 @@ app.post('/api/translate', translateLimiter, handleTranslate)
 app.post('/api/translate-ui', translateUiLimiter, handleTranslateUi)
 app.post('/api/speech-to-text', speechLimiter, handleSpeechToText)
 app.post('/api/text-to-speech', speechLimiter, handleTextToSpeech)
+
+// Serves the Vite production build (npm run build) so a single deployed
+// process handles both the API and the frontend on one origin — the app's
+// fetch calls use relative /api/... paths, so same-origin is required.
+app.use(express.static(distDir))
+app.use((req, res, next) => {
+  if (req.method !== 'GET' || req.path.startsWith('/api/')) return next()
+  res.sendFile(path.join(distDir, 'index.html'))
+})
 
 startCongestionSimulator()
 
