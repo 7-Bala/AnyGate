@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react'
 import { useAppContext } from '../context/AppContext.jsx'
-import { t, BCP47_LOCALE } from '../i18n/strings.js'
+import { useT } from '../i18n/useT.js'
+import { BCP47_LOCALE } from '../i18n/strings.js'
 import stadium from '../data/stadium.json'
 import StaffAssistanceButton from './StaffAssistanceButton.jsx'
 
@@ -8,6 +9,7 @@ let nextId = 0
 
 export default function Chat() {
   const { language, simpleLanguage, currentRecommendation, requestStaffAssistance } = useAppContext()
+  const t = useT()
   const [messages, setMessages] = useState([])
   const [input, setInput] = useState('')
   const [sending, setSending] = useState(false)
@@ -51,7 +53,7 @@ export default function Chat() {
     } catch {
       setMessages((prev) => [
         ...prev,
-        { id: nextId++, role: 'assistant', text: t('explanationError', language), urgent: false },
+        { id: nextId++, role: 'assistant', text: t('explanationError'), urgent: false },
       ])
     } finally {
       setSending(false)
@@ -89,9 +91,9 @@ export default function Chat() {
           if (!res.ok) throw new Error('speech-to-text failed')
           const data = await res.json()
           if (data.transcript) setInput(data.transcript)
-          else setVoiceError(t('voiceNoSpeech', language))
+          else setVoiceError(t('voiceNoSpeech'))
         } catch {
-          setVoiceError(t('voiceUnavailable', language))
+          setVoiceError(t('voiceUnavailable'))
         }
       }
 
@@ -99,7 +101,7 @@ export default function Chat() {
       recorder.start()
       setRecording(true)
     } catch {
-      setVoiceError(t('micDenied', language))
+      setVoiceError(t('micDenied'))
     }
   }
 
@@ -135,17 +137,17 @@ export default function Chat() {
       setPlayingId(message.id)
       audio.play()
     } catch {
-      setVoiceError(t('readAloudUnavailable', language))
+      setVoiceError(t('readAloudUnavailable'))
     }
   }
 
   return (
     <section aria-labelledby="chat-heading" className="flex flex-col gap-4 rounded-2xl border border-ink/10 p-5 dark:border-chalk/10">
       <h2 id="chat-heading" className="font-display text-xl font-bold">
-        {t('chatTitle', language)}
+        {t('chatTitle')}
       </h2>
 
-      <ol aria-live="polite" aria-label={t('chatTitle', language)} className="flex max-h-80 flex-col gap-3 overflow-y-auto">
+      <ol aria-live="polite" aria-label={t('chatTitle')} className="flex max-h-80 flex-col gap-3 overflow-y-auto">
         {messages.map((message) => (
           <li
             key={message.id}
@@ -158,7 +160,7 @@ export default function Chat() {
             }`}
           >
             {message.urgent && (
-              <p className="mb-2 font-display font-bold text-coral">{t('urgentBanner', language)}</p>
+              <p className="mb-2 font-display font-bold text-coral">{t('urgentBanner')}</p>
             )}
             <p>
               <bdi>{message.text}</bdi>
@@ -173,7 +175,7 @@ export default function Chat() {
                     : 'text-teal-strong focus-visible:outline-teal dark:text-teal'
                 }`}
               >
-                {playingId === message.id ? t('stopReading', language) : t('readAloud', language)}
+                {playingId === message.id ? t('stopReading') : t('readAloud')}
               </button>
             )}
             {message.urgent && (
@@ -193,21 +195,21 @@ export default function Chat() {
 
       <form onSubmit={handleSubmit} className="flex gap-2">
         <label htmlFor="chat-input" className="sr-only">
-          {t('chatPlaceholder', language)}
+          {t('chatPlaceholder')}
         </label>
         <input
           id="chat-input"
           type="text"
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          placeholder={t('chatPlaceholder', language)}
+          placeholder={t('chatPlaceholder')}
           className="flex-1 rounded-full border border-ink/25 bg-transparent px-4 py-2 placeholder:text-ink/70 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal dark:border-chalk/25 dark:placeholder:text-chalk/70"
         />
         <button
           type="button"
           onClick={recording ? stopRecording : startRecording}
           aria-pressed={recording}
-          aria-label={recording ? t('micStop', language) : t('micStart', language)}
+          aria-label={recording ? t('micStop') : t('micStart')}
           className="rounded-full border border-ink/25 px-3 py-2 transition-colors aria-pressed:border-coral aria-pressed:bg-coral/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal dark:border-chalk/25"
         >
           {recording ? '⏹' : '🎤'}
@@ -217,7 +219,7 @@ export default function Chat() {
           disabled={sending}
           className="rounded-full bg-gold px-4 py-2 font-semibold text-ink transition-transform hover:scale-[1.02] disabled:opacity-60 disabled:hover:scale-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal"
         >
-          {t('send', language)}
+          {t('send')}
         </button>
       </form>
     </section>

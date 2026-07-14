@@ -5,6 +5,7 @@ import { startCongestionSimulator, getCongestionSnapshot } from './services/cong
 import { rateLimit } from './middleware/rateLimit.js'
 import { handleChat } from './routes/chat.js'
 import { handleTranslate } from './routes/translate.js'
+import { handleTranslateUi } from './routes/translateUi.js'
 import { handleSpeechToText, handleTextToSpeech } from './routes/speech.js'
 
 const app = express()
@@ -27,10 +28,12 @@ app.get('/api/congestion', (_req, res) => {
 
 const chatLimiter = rateLimit({ windowMs: 60_000, max: 20 })
 const translateLimiter = rateLimit({ windowMs: 60_000, max: 30 })
+const translateUiLimiter = rateLimit({ windowMs: 60_000, max: 20 })
 const speechLimiter = rateLimit({ windowMs: 60_000, max: 20 })
 
 app.post('/api/chat', chatLimiter, handleChat)
 app.post('/api/translate', translateLimiter, handleTranslate)
+app.post('/api/translate-ui', translateUiLimiter, handleTranslateUi)
 app.post('/api/speech-to-text', speechLimiter, handleSpeechToText)
 app.post('/api/text-to-speech', speechLimiter, handleTextToSpeech)
 

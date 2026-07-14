@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useAppContext } from '../context/AppContext.jsx'
-import { t } from '../i18n/strings.js'
+import { useT } from '../i18n/useT.js'
+import { LANGUAGES } from '../i18n/languages.js'
 import { VALID_NEEDS } from '../engine/needs.js'
 import NeedGlyph from './NeedGlyph.jsx'
 
@@ -12,14 +13,9 @@ const NEED_LABEL_KEYS = {
   limited_mobility: 'needMobility',
 }
 
-const LANGUAGES = [
-  { code: 'en', label: 'English' },
-  { code: 'es', label: 'Español' },
-  { code: 'ar', label: 'العربية' },
-]
-
 export default function Onboarding() {
   const { needs, setNeeds, language, setLanguage, completeOnboarding } = useAppContext()
+  const t = useT()
   const [step, setStep] = useState(1)
   const [selectedNeeds, setSelectedNeeds] = useState(needs)
 
@@ -47,13 +43,13 @@ export default function Onboarding() {
       aria-labelledby="onboarding-heading"
     >
       <h1 id="onboarding-heading" className="font-display text-4xl font-black tracking-tight">
-        {t('appName', language)}
+        {t('appName')}
       </h1>
 
       {step === 1 && (
         <fieldset className="flex flex-col gap-4">
-          <legend className="font-display text-xl font-bold">{t('onboardNeedsTitle', language)}</legend>
-          <p className="text-sm text-chalk/70">{t('onboardNeedsHint', language)}</p>
+          <legend className="font-display text-xl font-bold">{t('onboardNeedsTitle')}</legend>
+          <p className="text-sm text-chalk/70">{t('onboardNeedsHint')}</p>
 
           <div className="flex flex-col gap-3">
             {VALID_NEEDS.map((need) => (
@@ -68,7 +64,7 @@ export default function Onboarding() {
                   className="h-5 w-5 accent-gold"
                 />
                 <NeedGlyph type={need} className="h-5 w-5 shrink-0 text-gold" />
-                <span>{t(NEED_LABEL_KEYS[need], language)}</span>
+                <span>{t(NEED_LABEL_KEYS[need])}</span>
               </label>
             ))}
             <label className="flex items-center gap-3 rounded-xl border border-chalk/20 p-3 transition-colors has-checked:border-gold has-checked:bg-gold/10 focus-within:ring-2 focus-within:ring-gold">
@@ -78,7 +74,7 @@ export default function Onboarding() {
                 onChange={() => setSelectedNeeds([])}
                 className="h-5 w-5 accent-gold"
               />
-              <span>{t('needNone', language)}</span>
+              <span>{t('needNone')}</span>
             </label>
           </div>
 
@@ -87,16 +83,16 @@ export default function Onboarding() {
             onClick={handleNext}
             className="mt-2 rounded-full bg-gold px-4 py-3 font-semibold text-ink transition-transform hover:scale-[1.01] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-chalk"
           >
-            {t('next', language)}
+            {t('next')}
           </button>
         </fieldset>
       )}
 
       {step === 2 && (
         <fieldset className="flex flex-col gap-4">
-          <legend className="font-display text-xl font-bold">{t('onboardLanguageTitle', language)}</legend>
+          <legend className="font-display text-xl font-bold">{t('onboardLanguageTitle')}</legend>
 
-          <div className="flex flex-col gap-3" role="radiogroup" aria-label={t('languageLabel', language)}>
+          <div className="flex max-h-80 flex-col gap-3 overflow-y-auto" role="radiogroup" aria-label={t('languageLabel')}>
             {LANGUAGES.map(({ code, label }) => (
               <label
                 key={code}
@@ -120,14 +116,14 @@ export default function Onboarding() {
               onClick={() => setStep(1)}
               className="rounded-full border border-chalk/30 px-4 py-3 font-medium text-chalk focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold"
             >
-              {t('back', language)}
+              {t('back')}
             </button>
             <button
               type="button"
               onClick={handleFinish}
               className="flex-1 rounded-full bg-gold px-4 py-3 font-semibold text-ink transition-transform hover:scale-[1.01] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-chalk"
             >
-              {t('finish', language)}
+              {t('finish')}
             </button>
           </div>
         </fieldset>

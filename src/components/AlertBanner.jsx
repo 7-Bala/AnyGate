@@ -1,5 +1,5 @@
 import { useAppContext } from '../context/AppContext.jsx'
-import { t } from '../i18n/strings.js'
+import { useT } from '../i18n/useT.js'
 import { useTranslated } from '../hooks/useTranslated.js'
 import { useReducedMotion } from '../hooks/useReducedMotion.js'
 
@@ -10,6 +10,7 @@ import { useReducedMotion } from '../hooks/useReducedMotion.js'
 // so the banner and the recommendation never disagree with each other.
 export default function AlertBanner({ rankedGates, shownFacilityId, onSwitch }) {
   const { language } = useAppContext()
+  const t = useT()
   const reducedMotion = useReducedMotion()
 
   const shown = rankedGates.find((r) => r.facility.id === shownFacilityId)
@@ -37,9 +38,9 @@ export default function AlertBanner({ rankedGates, shownFacilityId, onSwitch }) 
           </svg>
         </span>
         <div>
-          <p className="font-display text-lg font-bold text-coral-strong dark:text-coral">{t('congestionAlertTitle', language)}</p>
+          <p className="font-display text-lg font-bold text-coral-strong dark:text-coral">{t('congestionAlertTitle')}</p>
           <p className="text-sm text-ink dark:text-chalk">
-            <bdi className="font-semibold">{facilityName}</bdi> {t('congestionAlertBody', language)}{' '}
+            <bdi className="font-semibold">{facilityName}</bdi> {t('congestionAlertBody')}{' '}
             <bdi className="font-semibold">{alternateName}</bdi>
           </p>
         </div>
@@ -49,7 +50,7 @@ export default function AlertBanner({ rankedGates, shownFacilityId, onSwitch }) 
         onClick={() => onSwitch(alternate.facility.id)}
         className="shrink-0 rounded-lg bg-coral-strong px-4 py-2 font-medium text-chalk hover:bg-coral-strong/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink dark:bg-coral dark:text-ink dark:hover:bg-coral/90"
       >
-        {t('switchTo', language)}
+        {t('switchTo')}
       </button>
     </div>
   )

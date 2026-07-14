@@ -11,6 +11,14 @@ export function AppProvider({ children }) {
   const [currentRecommendation, setCurrentRecommendation] = useState(null)
   const [staffAssistanceRequested, setStaffAssistanceRequested] = useState(false)
 
+  // uiChrome holds a runtime-translated { key: text } dictionary for
+  // languages beyond the hand-verified en/es/ar static ones (see
+  // useUiChromeLoader). uiChromeStatus lets the UI show a small,
+  // non-alarming indicator rather than silently and invisibly falling
+  // back to English.
+  const [uiChrome, setUiChrome] = useState(null)
+  const [uiChromeStatus, setUiChromeStatus] = useState('static')
+
   const value = useMemo(
     () => ({
       onboarded,
@@ -28,8 +36,22 @@ export function AppProvider({ children }) {
       staffAssistanceRequested,
       requestStaffAssistance: () => setStaffAssistanceRequested(true),
       clearStaffAssistanceRequest: () => setStaffAssistanceRequested(false),
+      uiChrome,
+      setUiChrome,
+      uiChromeStatus,
+      setUiChromeStatus,
     }),
-    [onboarded, needs, language, highContrast, simpleLanguage, currentRecommendation, staffAssistanceRequested],
+    [
+      onboarded,
+      needs,
+      language,
+      highContrast,
+      simpleLanguage,
+      currentRecommendation,
+      staffAssistanceRequested,
+      uiChrome,
+      uiChromeStatus,
+    ],
   )
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>

@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useAppContext } from '../context/AppContext.jsx'
-import { t } from '../i18n/strings.js'
+import { useT } from '../i18n/useT.js'
 import { filterValidOptions, scoreAndRank } from '../engine/index.js'
 import { subscribeToCongestion } from '../services/firestoreClient.js'
 import stadium from '../data/stadium.json'
@@ -13,6 +13,7 @@ const gates = stadium.facilities.filter((f) => f.type === 'gate')
 
 export default function RouteView() {
   const { needs, language, simpleLanguage, setCurrentRecommendation } = useAppContext()
+  const t = useT()
   const [congestion, setCongestion] = useState({})
   const [shownFacilityId, setShownFacilityId] = useState(null)
 
@@ -65,12 +66,12 @@ export default function RouteView() {
 
       <div>
         <h2 id="recommendation-heading" className="mb-3 font-display text-2xl font-bold">
-          {t('recommendationTitle', language)}
+          {t('recommendationTitle')}
         </h2>
         <RecommendationCard
           key={shownResult.facility.id}
           result={shownResult}
-          explanation={explanation.loading ? t('explanationLoading', language) : explanation.error ? t('explanationError', language) : explanation.text}
+          explanation={explanation.loading ? t('explanationLoading') : explanation.error ? t('explanationError') : explanation.text}
           headingId="top-recommendation-name"
           variant="hero"
           animate
@@ -79,7 +80,7 @@ export default function RouteView() {
 
       {alternates.length > 0 && (
         <div>
-          <h2 className="mb-3 font-display text-xl font-bold">{t('alternatesTitle', language)}</h2>
+          <h2 className="mb-3 font-display text-xl font-bold">{t('alternatesTitle')}</h2>
           <div className="flex flex-col gap-3">
             {alternates.map((result, i) => (
               <RecommendationCard

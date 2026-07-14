@@ -1,5 +1,5 @@
 import { useAppContext } from '../context/AppContext.jsx'
-import { t } from '../i18n/strings.js'
+import { useT } from '../i18n/useT.js'
 import { useTranslated } from '../hooks/useTranslated.js'
 import { useReducedMotion } from '../hooks/useReducedMotion.js'
 import GateBadge from './GateBadge.jsx'
@@ -23,6 +23,7 @@ export default function RecommendationCard({
   style,
 }) {
   const { language } = useAppContext()
+  const t = useT()
   const name = useTranslated(result.facility.name, language)
   const transitNote = useTranslated(result.facility.nearest_transit_note, language)
   const reducedMotion = useReducedMotion()
@@ -47,8 +48,8 @@ export default function RecommendationCard({
         overCapacity={result.breakdown.overCapacity}
         size={isHero ? 'hero' : 'md'}
         animate={animate}
-        liveLabel={t('liveLabel', language)}
-        unknownLabel={t('unknownLabel', language)}
+        liveLabel={t('liveLabel')}
+        unknownLabel={t('unknownLabel')}
       />
 
       <div className="flex min-w-0 flex-1 flex-col gap-2">
@@ -59,19 +60,19 @@ export default function RecommendationCard({
           <bdi>{transitNote}</bdi>
         </p>
         <p className="font-mono text-xs tabular-nums text-ink/60 dark:text-chalk/60">
-          {t('scoreLabel', language)} {result.score}/100
+          {t('scoreLabel')} {result.score}/100
         </p>
 
         {isHero && explanation && (
           <div className="mt-1 rounded-xl bg-teal/10 p-3 text-sm dark:bg-teal/15">
-            <h4 className="mb-1 font-semibold text-teal-strong dark:text-teal">{t('whyTitle', language)}</h4>
+            <h4 className="mb-1 font-semibold text-teal-strong dark:text-teal">{t('whyTitle')}</h4>
             <p>{explanation}</p>
           </div>
         )}
 
         <details className={isHero ? 'mt-1' : 'mt-0.5'}>
           <summary className="cursor-pointer text-sm font-medium text-ink/80 hover:text-ink dark:text-chalk/80 dark:hover:text-chalk">
-            {t('whyTitle', language)} — {t('detailsLabel', language)}
+            {t('whyTitle')} — {t('detailsLabel')}
           </summary>
           <ul className="mt-2 list-disc space-y-1 pl-5 text-sm">
             {result.notes.map((note) => (

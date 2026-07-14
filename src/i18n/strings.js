@@ -1,10 +1,11 @@
-// Small, finite set of static UI chrome labels (buttons, headings, toggles).
-// Hand-translated here rather than routed through /api/translate: these
-// aren't venue facts, so accuracy-from-data doesn't apply, and translating
-// the same handful of strings on every render/API call would be wasteful.
-// Facility names, transit notes, and engine breakdown text ARE routed
-// through /api/translate (see src/hooks/useTranslated.js) since those are
-// the factual strings your spec calls out.
+// UI_STRINGS.en is the single source of truth for UI chrome. en/es/ar
+// below are hand-verified static dictionaries, checked by a person, not
+// just machine-translated. Every other curated language (see
+// languages.js) is translated live via /api/translate-ui and cached —
+// see useT.js and useUiChromeLoader.js. Facility names, transit notes,
+// and engine breakdown text are separately routed through /api/translate
+// per-string (see useTranslated.js) since those are venue facts, not UI
+// chrome.
 export const UI_STRINGS = {
   en: {
     appName: 'Any Gate',
@@ -55,6 +56,8 @@ export const UI_STRINGS = {
     voiceUnavailable: 'Voice input is temporarily unavailable.',
     micDenied: 'Microphone access was denied or unavailable.',
     readAloudUnavailable: 'Read-aloud is temporarily unavailable.',
+    translationLoading: 'Translating the page…',
+    translationUnavailable: 'Live translation unavailable — showing English for some labels.',
   },
   es: {
     appName: 'Any Gate',
@@ -105,6 +108,8 @@ export const UI_STRINGS = {
     voiceUnavailable: 'La entrada de voz no está disponible en este momento.',
     micDenied: 'Se denegó el acceso al micrófono o no está disponible.',
     readAloudUnavailable: 'La lectura en voz alta no está disponible en este momento.',
+    translationLoading: 'Traduciendo la página…',
+    translationUnavailable: 'Traducción en vivo no disponible — mostrando inglés para algunas etiquetas.',
   },
   ar: {
     appName: 'Any Gate',
@@ -154,13 +159,20 @@ export const UI_STRINGS = {
     voiceUnavailable: 'الإدخال الصوتي غير متاح حاليًا.',
     micDenied: 'تم رفض الوصول إلى الميكروفون أو أنه غير متاح.',
     readAloudUnavailable: 'القراءة بصوت عالٍ غير متاحة حاليًا.',
+    translationLoading: 'جارٍ ترجمة الصفحة…',
+    translationUnavailable: 'الترجمة المباشرة غير متاحة — تُعرض بعض التسميات بالإنجليزية.',
   },
 }
 
-export function t(key, language) {
-  return UI_STRINGS[language]?.[key] ?? UI_STRINGS.en[key] ?? key
+export const BCP47_LOCALE = {
+  en: 'en-US',
+  es: 'es-ES',
+  fr: 'fr-FR',
+  pt: 'pt-PT',
+  ar: 'ar-SA',
+  zh: 'zh-CN',
+  hi: 'hi-IN',
+  de: 'de-DE',
+  ja: 'ja-JP',
+  ko: 'ko-KR',
 }
-
-export const RTL_LANGUAGES = new Set(['ar'])
-
-export const BCP47_LOCALE = { en: 'en-US', es: 'es-ES', ar: 'ar-SA' }
