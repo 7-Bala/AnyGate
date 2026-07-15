@@ -4,6 +4,25 @@ An accessibility-first wayfinding assistant that gets a fan with an accessibilit
 to the right gate, restroom, or quiet room at a huge, loud, multi-day stadium event —
 and explains why, in their language.
 
+## Challenge requirements → what was built
+
+| Requirement | Where it lives |
+|---|---|
+| Chosen vertical stated explicitly | Accessibility — see [Vertical](#vertical) below |
+| Deterministic hard-constraint filter, zero LLM, unit tested | `src/engine/filterValidOptions.js` |
+| Deterministic scoring/ranking layer, zero LLM, exposes score breakdown | `src/engine/scoreAndRank.js` |
+| GenAI layer is the *only* place an LLM makes a routing/ranking decision | `server/services/geminiClient.js`, behind `/api/chat` — see [Architecture](#architecture) for the Translate/Speech fallback nuance |
+| GenAI explains recommendation, answers grounded Q&A, detects urgency | `server/prompts/chatSystemPrompt.js`, `src/components/Chat.jsx` |
+| Real-time congestion layer, Firestore-shaped | `src/services/firestoreClient.js` (see [Architecture](#architecture) for the honest caveat) |
+| Google Cloud Translation for literal/safety-critical strings | `server/services/translateClient.js`, `/api/translate`, `/api/translate-ui` |
+| Google Speech-to-Text / Text-to-Speech, voice in/out | `server/services/speechClient.js`, `/api/speech-to-text`, `/api/text-to-speech` |
+| Prompt-injection sanitization before any LLM call | `server/middleware/sanitizeInput.js` |
+| No PII logging or persistence beyond the active session | Stateless requests throughout; see [Security](#security) |
+| API keys server-side only, rate-limited endpoints | `server/middleware/rateLimit.js`; verified against the built client bundle |
+| Unit tests on the deterministic engine's edge cases | `tests/engine.test.js` — see [Testing](#testing) |
+| Full ARIA/keyboard/high-contrast/RTL/reduced-motion UI | See [Design](#design) |
+| Repo under 10MB, single branch, `.gitignore` from the first commit | `.git` is ~1.5MB; `main` is the only branch, locally and on origin |
+
 ## Vertical
 
 **Accessibility is the chosen vertical.** Everything else in this product — crowd-aware
@@ -70,16 +89,25 @@ server/
   middleware/   sanitizeInput.js, rateLimit.js
   prompts/      chatSystemPrompt.js
 tests/
-  engine.test.js  18 unit tests on the deterministic engine
+  engine.test.js         18 tests — the deterministic filter/scorer's edge cases
+  sanitizeInput.test.js  9 tests — the prompt-injection sanitizer
+  languages.test.js      9 tests — RTL derivation and the curated language list
+  strings.test.js        9 tests — every language dictionary stays key-complete
 ```
 
-- **Gemini** plugs in at `server/services/geminiClient.js` behind the `/api/chat` route —
-  the only place the app calls an LLM.
+- **Gemini** plugs in at `server/services/geminiClient.js` behind the `/api/chat` route.
+  This is the only place an LLM makes an explanatory or conversational decision — it never
+  touches routing/ranking, per the 3-layer split above.
 - **Google Translate** plugs in at `server/services/translateClient.js` behind
   `/api/translate` (fan-message translation) and `/api/translate-ui` (UI chrome for
-  languages beyond the hand-tested three).
+  languages beyond the hand-tested three). If `GOOGLE_TRANSLATE_API_KEY` isn't configured,
+  it falls back to Gemini doing the literal translation instead — infrastructure
+  substitution, not a second decision-making LLM layer, and the app still works end to end
+  on a single `GEMINI_API_KEY` with no other keys set at all.
 - **Google Speech-to-Text/TTS** plug in at `server/services/speechClient.js` behind
-  `/api/speech-to-text` and `/api/text-to-speech`, giving the chat voice in/out.
+  `/api/speech-to-text` and `/api/text-to-speech`, giving the chat voice in/out. Same
+  fallback pattern: without `GOOGLE_CLOUD_API_KEY`, Gemini handles transcription and
+  speech synthesis instead.
 - **Congestion**: the frontend reads congestion through
   `src/services/firestoreClient.js`, which currently calls a local `/api/congestion`
   route backed by a seeded pseudo-random walk (`server/services/congestionSimulator.js`),
@@ -127,10 +155,21 @@ Translate API's live output rather than hand-checked.
 
 ## Testing
 
-18 unit tests (`tests/engine.test.js`) cover the deterministic engine's real edge cases:
-no valid route when needs conflict with the only matching facility, missing or stale
-congestion data (flagged `unknown`, never crashes), over-capacity penalties, and partial
-vs. full feature-match ranking.
+45 unit tests across four files:
+- **`tests/engine.test.js`** (18) — the deterministic engine's real edge cases: no valid
+  route when needs conflict with the only matching facility, missing or stale congestion
+  data (flagged `unknown`, never crashes), over-capacity penalties, and partial vs. full
+  feature-match ranking.
+- **`tests/sanitizeInput.test.js`** (9) — the prompt-injection sanitizer: instruction-
+  override phrasing, role-marker spoofing, fake tags, length capping, and non-string input
+  never throwing.
+- **`tests/languages.test.js`** (9) — RTL is derived from the language code rather than
+  hardcoded per language; verified against codes outside the curated list (`he`, `fa`,
+  `ur`) to prove the derivation actually generalizes, not just the one Arabic case the UI
+  exposes.
+- **`tests/strings.test.js`** (9) — every hand-verified language dictionary has exactly
+  the same keys as English, so a typo in a translation key can't silently fall back
+  without anyone noticing.
 
 Beyond unit tests, the app was validated with actual manual end-to-end testing, which is
 where two real bugs were found and fixed — worth calling out as a genuine strength of the
@@ -152,11 +191,13 @@ process, not just a checklist item:
   real-world GPS coordinates.
 - Only **MetLife Stadium** is populated with data. The architecture is venue-agnostic;
   other venues could be added via the same data schema without engine changes.
-- Full functional verification of **live Gemini responses** and **live Google Translate
-  output for the seven non-hand-tested languages** requires API keys that are not present
-  in the evaluation/CI environment. Everything else — UI logic, routing correctness,
-  graceful degradation without a key, and security behavior (sanitization, grounding) —
-  was verified without live keys.
+- Full functional verification of **live Gemini responses**, **live Google Translate
+  output for the seven non-hand-tested languages**, and the **Gemini fallback path for
+  speech-to-text/text-to-speech** requires API keys that are not present in the
+  evaluation/CI environment. Everything else — UI logic, routing correctness, graceful
+  degradation without a key, and security behavior (sanitization, grounding) — was
+  verified without live keys. A missing or invalid key on any of these paths degrades to
+  a clear error state (never a crash, never a silent wrong answer) — verified directly.
 
 ## Setup / running locally
 
@@ -165,7 +206,7 @@ npm install
 cp .env.example .env   # fill in GEMINI_API_KEY
 npm run dev             # frontend (Vite)
 npm run server:dev      # backend (Express)
-npm test                # 18 unit tests on the deterministic engine
+npm test                # 45 unit tests across the engine, sanitizer, and i18n
 ```
 
 ## Deployment (Free & Persistent)
