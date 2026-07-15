@@ -46,7 +46,7 @@ exactly one of the three layers:
 2. **Deterministic scorer** (`src/engine/scoreAndRank.js`) — ranks the valid options,
    factoring in live congestion and feature-match quality. Pure logic. Never touches an LLM.
 3. **GenAI layer** (`server/services/geminiClient.js`, Gemini API, model
-   `gemini-2.5-flash`) — the *only* layer that talks to a language model. It explains an
+   `gemini-flash-latest`) — the *only* layer that talks to a language model. It explains an
    already-computed recommendation in warm natural language, answers open-ended
    multilingual questions about the venue, and detects urgency or distress in a fan's free
    text.

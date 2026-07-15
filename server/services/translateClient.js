@@ -5,7 +5,7 @@ async function translateWithGemini({ text, target, source }) {
     throw new Error('Neither GOOGLE_TRANSLATE_API_KEY nor GEMINI_API_KEY is configured')
   }
 
-  const model = process.env.GEMINI_MODEL || 'gemini-2.5-flash'
+  const model = process.env.GEMINI_MODEL || 'gemini-flash-latest'
   const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${process.env.GEMINI_API_KEY}`
 
   const prompt = `Translate the following text to language code "${target}".${source ? ` The source language is "${source}".` : ''}
@@ -36,7 +36,7 @@ async function translateBatchWithGemini({ texts, target, source }) {
     throw new Error('Neither GOOGLE_TRANSLATE_API_KEY nor GEMINI_API_KEY is configured')
   }
 
-  const model = process.env.GEMINI_MODEL || 'gemini-2.5-flash'
+  const model = process.env.GEMINI_MODEL || 'gemini-flash-latest'
   const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${process.env.GEMINI_API_KEY}`
 
   const prompt = `Translate the following list of strings to language code "${target}".${source ? ` The source language is "${source}".` : ''}
